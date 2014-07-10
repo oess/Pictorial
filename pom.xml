@@ -32,7 +32,7 @@
             <groupId>com.openeye</groupId>
             <artifactId>oejava</artifactId>
             <version>2014.Jun.6</version>
-            <classifier>MacOSX-x64</classifier>
+            <classifier>${oe.platform}-x64</classifier>
         </dependency>
 
         <dependency>
