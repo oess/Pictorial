@@ -222,11 +222,7 @@ public class Controller implements Initializable {
                 throw new RuntimeException("OEWriteImageToByteArray failed");
             }
 
-            // display the image in the webview
-            //String content = "<html><body><table align='center'<tr><td><table border='1' cellspacing='0' cellpadding='0'><tr><td>" +
-             //                new String(imgBytes) + "</td></tr></table></tr></td></table></body><html>";
             _webView.getEngine().loadContent(new String(imgBytes));
-           // System.out.println(new String(imgBytes));
             
             // write to save file
             if(saveFile != null) {
@@ -550,23 +546,49 @@ public class Controller implements Initializable {
         return val;
     }
 
-    @FXML
-    public void generatePython(ActionEvent event) {
+    private void generateCode(String language, String extension, Settings.LanguageFormat langFormat) { 
+        final String filter = String.format("%s (*%s)", language, extension);
         FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PY (*.py)", "*.py"));
-        fc.titleProperty().set("Save Python Script");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter(filter, "*" + extension));
+
+        fc.titleProperty().set("Saving a " + language + " file ");
         fc.setInitialDirectory(_savePath);
         File tmp = fc.showSaveDialog(_webView.getScene().getWindow());
         if (tmp == null) { return; }
 
-        _savePath = tmp.getAbsoluteFile();
+        _savePath = tmp.getParentFile(); // remember the directory previously chosen
+        
+        // remove the extension for code generation purposes
+        // java.io.File: how to be awkward
         String tmpName = tmp.getName();
         int index =  tmpName.lastIndexOf('.');
-        if (index != -1) { 
+        if (index == -1) { 
+            tmp = new File(tmp.getAbsolutePath() + extension);
+        } else {
             tmpName = tmpName.substring(0,index);
         }
         _settings.setImageName(tmpName);
 
+        // load the template
+        Configuration cfg = new Configuration();
+        cfg.setClassForTemplateLoading(System.class, "/pictorial");
+        cfg.setObjectWrapper(new DefaultObjectWrapper());
+        cfg.setDefaultEncoding("UTF-8");
+        Template temp = null;
+        try {
+            temp = cfg.getTemplate("template" + extension);
+            Writer fw = new FileWriter(tmp.getAbsoluteFile());
+            temp.process(_settings.getHashTable(langFormat), fw);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(TemplateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void generatePython(ActionEvent event) {
         Settings.LanguageFormat pyFormat = s -> {
             if (s.equals("true")) {
                 return "True";
@@ -575,22 +597,7 @@ public class Controller implements Initializable {
             }
             return s.replace("::", "_");
         };
-
-        Configuration cfg = new Configuration();
-        cfg.setClassForTemplateLoading(System.class, "/imagefixer");
-        cfg.setObjectWrapper(new DefaultObjectWrapper());
-        cfg.setDefaultEncoding("UTF-8");
-        Template temp = null;
-        try {
-            temp = cfg.getTemplate("template.py");
-            Writer fw = new FileWriter(_savePath);
-            temp.process(_settings.getHashTable(pyFormat), fw);
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch(TemplateException e) {
-            e.printStackTrace();
-        }
+        generateCode("Python", ".py", pyFormat);
     }
 
     @FXML
@@ -600,38 +607,8 @@ public class Controller implements Initializable {
 
     @FXML
     public void generateJava(ActionEvent event) {
-        FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("JAVA (*.java)", "*.java"));
-        fc.titleProperty().set("Save Java Source");
-        fc.setInitialDirectory(_savePath);
-        File tmp = fc.showSaveDialog(_webView.getScene().getWindow());
-        if (tmp == null) { return; }
-
-        _savePath = tmp.getAbsoluteFile();
-        String tmpName = tmp.getName();
-        int index =  tmpName.lastIndexOf('.');
-        if (index != -1) { 
-            tmpName = tmpName.substring(0,index);
-        }
-        _settings.setImageName(tmpName);
-
         Settings.LanguageFormat javaFormat = s -> s.replace("::", ".");
-
-        Configuration cfg = new Configuration();
-        cfg.setClassForTemplateLoading(System.class, "/imagefixer");
-        cfg.setObjectWrapper(new DefaultObjectWrapper());
-        cfg.setDefaultEncoding("UTF-8");
-        Template temp = null;
-        try {
-            temp = cfg.getTemplate("template.java");
-            Writer fw = new FileWriter(_savePath);
-            temp.process(_settings.getHashTable(javaFormat), fw);
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch(TemplateException e) {
-            e.printStackTrace();
-        }
+        generateCode("Java", ".java", javaFormat);
     }
 
     @FXML
