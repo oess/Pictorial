@@ -53,8 +53,8 @@
                     <archive>
                         <manifestEntries>
                             <addClasspath>true</addClasspath>
-                            <Implementation-Version>${pom.version}</Implementation-Version>
-                            <Main-Class>imageFixer.ImageFixer</Main-Class>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Main-Class>pictorial.Pictorial</Main-Class>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -103,14 +103,6 @@
                                     <include>*</include>
                                 </includes>
                             </artifactSet>
-
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <manifestEntries>
-                                        <Main-Class>pictorial.Pictorial</Main-Class>
-                                    </manifestEntries>
-                                </transformer>
-                            </transformers>
 
                         </configuration>
                     </execution>
