@@ -212,7 +212,7 @@ public class Settings {
         ht.put("aromaticStyle", formatter.format(titleLocation.toString()));
         ht.put("atomStereoStyle", formatter.format(atomStereoStyle.toString()));
         ht.put("bondStereoStyle", formatter.format(bondStereoStyle.toString()));
-        ht.put("colorStyle", formatter.format(hydrogenStyle.toString()));
+        ht.put("colorStyle", formatter.format(colorStyle.toString()));
         ht.put("superAtomStyle", formatter.format(superAtomStyle.toString()));
         ht.put("hydrogenStyle", formatter.format(hydrogenStyle.toString()));
 
