@@ -22,3 +22,8 @@ Uses Depict to generate images and code samples.
 
 * `mvn package -Doe.platform=MacOSX`
 
+## Running Pictorial
+
+* `java -jar target/Pictorial-1.0.jar`
+
+Note that version number is subject to change.
