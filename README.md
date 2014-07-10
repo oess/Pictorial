@@ -27,3 +27,8 @@ Uses Depict to generate images and code samples.
 * `java -jar target/Pictorial-1.0.jar`
 
 Note that version number is subject to change.
+
+## Known Issues:
+
+* C++ and C# code generation is not implemented
+* Errors are displayed in the console and not in the UI
