@@ -44,7 +44,7 @@ public class Controller implements Initializable {
                      
     @FXML
     private ComboBox _colorStyle, _atomStereo, _bondStereo, 
-                     _superAtoms, _hydrogens, _aromaticity, _stripSalts;
+                     _superAtoms, _hydrogens, _aromaticity;
     
     @FXML
     private Slider _penSize, _titleSize, _fontSize;
@@ -101,12 +101,11 @@ public class Controller implements Initializable {
         _widgets.add(_color);          _widgets.add(_colorStyle);
         _widgets.add(_atomStereo);     _widgets.add(_bondStereo);
         _widgets.add(_superAtoms);     _widgets.add(_hydrogens);
-        _widgets.add(_aromaticity);    _widgets.add(_stripSalts);
+        _widgets.add(_aromaticity);    _widgets.add(_genjava);
         _widgets.add(_titleLocBottom); _widgets.add(_penSize);
         _widgets.add(_fontSize);       _widgets.add(_save);
         _widgets.add(_titleLocTop);    _widgets.add(_gencpp);
         _widgets.add(_gencs);          _widgets.add(_genpy);
-        _widgets.add(_genjava);
     }   
     
     // Most of the OpenEye API calls are demonstrated in this method     
@@ -140,13 +139,6 @@ public class Controller implements Initializable {
             if (!_title.getText().equals("")) { 
                 _mol.SetTitle(_title.getText());
                 _settings.setMolTitle(_title.getText());
-            } 
-            
-            if(_stripSalts.getValue().toString().equals("Enabled")) {
-                oechem.OETheFunctionFormerlyKnownAsStripSalts(_mol);
-                _settings.setStripSalts(true);
-            } else {
-                _settings.setStripSalts(false);
             }
 
             // prepare the depiction
@@ -195,9 +187,9 @@ public class Controller implements Initializable {
               
                 boolean unique = true;
                 Color c = _color.getValue();
-                _settings.setRedHighlight((float)c.getRed());
-                _settings.setGreenHighlight((float)c.getGreen());
-                _settings.setBlueHighlight((float)c.getBlue());
+                _settings.setRedHighlight((int)(255*c.getRed()));
+                _settings.setGreenHighlight((int)(255*c.getGreen()));
+                _settings.setBlueHighlight((int)(255*c.getBlue()));
 
                 OEColor oec = new OEColor((int)(255*c.getRed()),
                                           (int)(255*c.getGreen()),

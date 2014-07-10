@@ -10,9 +10,6 @@ def makeImage():
     image = OEImage(${imageWidth}, ${imageHeight})
     bondPen = OEPen(OEBlack, OEBlack, OEFill_On, ${penSize})
 
-    if ${stripSalts}:
-        OETheFunctionFormerlyKnownAsStripSalts(mol)
-
     mol.SetTitle(molTitle)
     OEPrepareDepiction(mol, True, True)
     displayOpts = OE2DMolDisplayOptions(${imageWidth}, ${imageHeight}, OEScale_AutoScale)

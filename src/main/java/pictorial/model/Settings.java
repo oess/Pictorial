@@ -14,11 +14,10 @@ public class Settings {
     private int imageHeight = 600;
     private int penSize = 2;
     private int fontSize = 40;
-    private float redHighlight = 1.0f;
-    private float greenHighlight = 0.0f;
-    private float blueHighlight = 0.0f;
+    private int redHighlight = 0;
+    private int greenHighlight = 0;
+    private int blueHighlight = 0;
     private float atomFontScale = 1.0f;
-    private boolean stripSalts = false;
     private String imageName;
     private String smiles = "";
     private String subSearchQuery;
@@ -79,27 +78,27 @@ public class Settings {
         this.fontSize = fontSize;
     }
 
-    public float getRedHighlight() {
+    public int getRedHighlight() {
         return redHighlight;
     }
 
-    public void setRedHighlight(float redHighlight) {
+    public void setRedHighlight(int redHighlight) {
         this.redHighlight = redHighlight;
     }
 
-    public float getGreenHighlight() {
+    public int getGreenHighlight() {
         return greenHighlight;
     }
 
-    public void setGreenHighlight(float greenHighlight) {
+    public void setGreenHighlight(int greenHighlight) {
         this.greenHighlight = greenHighlight;
     }
 
-    public float getBlueHighlight() {
+    public int getBlueHighlight() {
         return blueHighlight;
     }
 
-    public void setBlueHighlight(float blueHighlight) {
+    public void setBlueHighlight(int blueHighlight) {
         this.blueHighlight = blueHighlight;
     }
 
@@ -109,14 +108,6 @@ public class Settings {
 
     public void setAtomFloatScale(float atomFloatScale) {
         this.atomFontScale = atomFloatScale;
-    }
-
-    public boolean isStripSalts() {
-        return stripSalts;
-    }
-
-    public void setStripSalts(boolean stripSalts) {
-        this.stripSalts = stripSalts;
     }
 
     public String getSmiles() {
@@ -214,7 +205,6 @@ public class Settings {
         ht.put("greenHighlight", String.valueOf(greenHighlight));
         ht.put("blueHighlight", String.valueOf(blueHighlight));
         ht.put("atomFontScale", decimalFormat.format(atomFontScale));
-        ht.put("stripSalts", formatter.format(String.valueOf(stripSalts)));
         ht.put("smiles", smiles);
         ht.put("substructure", subSearchQuery);
         ht.put("molTitle", molTitle);

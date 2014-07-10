@@ -216,11 +216,6 @@
                                                 <Insets left="5.0" />
                                              </padding>
                                           </Label>
-                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Strip Salts:" GridPane.hgrow="NEVER" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
                                  <TextField fx:id="_submatch" onKeyReleased="#handleTyping" prefWidth="200.0" GridPane.columnIndex="1">
                                    <GridPane.margin>
                                      <Insets right="5.0" fx:id="x2" />
@@ -299,17 +294,6 @@
                                        <String fx:value="Kekule" />
                                        <String fx:value="Circle" />
                                        <String fx:value="Dash" />
-                                     </FXCollections>
-                                   </items>
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </ComboBox>
-                                 <ComboBox id="_stripSalt" fx:id="_stripSalts" onAction="#update" prefHeight="21.0" prefWidth="218.0" value="Disabled" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                   <items>
-                                     <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="Disabled" />
-                                       <String fx:value="Enabled" />
                                      </FXCollections>
                                    </items>
                                    <GridPane.margin>

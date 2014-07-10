@@ -7,7 +7,6 @@ public class ${imageName} {
     private String smiles = "${smiles}";
     private String ssquery = "${substructure}";
     private OEPen bondPen = new OEPen(oechem.getOEBlack(), oechem.getOEBlack(), OEFill.On, ${penSize});
-    private boolean stripSalts = ${stripSalts};
     private int imageWidth = ${imageWidth};
     private int imageHeight= ${imageHeight};
 
@@ -19,10 +18,6 @@ public class ${imageName} {
         }
 
         OEImage image = new OEImage(imageWidth, imageHeight);
-
-        if (stripSalts) {
-            oechem.OETheFunctionFormerlyKnownAsStripSalts(mol);
-        }
 
         mol.SetTitle(molTitle);
         oedepict.OEPrepareDepiction(mol, true, true);
@@ -51,9 +46,7 @@ public class ${imageName} {
                 throw new RuntimeException("Invalid substructure query: " + ssquery);
             }
 
-            OEColor color = new OEColor((int)(255*${redHighlight}),
-                                        (int)(255*${greenHighlight}),
-                                        (int)(255*${blueHighlight}));
+            OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight});
             for (OEMatchBase match: subsearch.Match(mol, true)) {
                 oedepict.OEAddHighlighting(display2d, color, OEHighlightStyle.Stick, match);
             }
