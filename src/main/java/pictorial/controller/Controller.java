@@ -561,9 +561,11 @@ public class Controller implements Initializable {
 
         _savePath = tmp.getAbsoluteFile();
         String tmpName = tmp.getName();
-        tmpName = tmpName.substring(0, tmpName.lastIndexOf('.'));
+        int index =  tmpName.lastIndexOf('.');
+        if (index != -1) { 
+            tmpName = tmpName.substring(0,index);
+        }
         _settings.setImageName(tmpName);
-
 
         Settings.LanguageFormat pyFormat = s -> {
             if (s.equals("true")) {
@@ -607,7 +609,10 @@ public class Controller implements Initializable {
 
         _savePath = tmp.getAbsoluteFile();
         String tmpName = tmp.getName();
-        tmpName = tmpName.substring(0, tmpName.lastIndexOf('.'));
+        int index =  tmpName.lastIndexOf('.');
+        if (index != -1) { 
+            tmpName = tmpName.substring(0,index);
+        }
         _settings.setImageName(tmpName);
 
         Settings.LanguageFormat javaFormat = s -> s.replace("::", ".");
