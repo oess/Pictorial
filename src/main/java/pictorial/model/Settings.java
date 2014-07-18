@@ -18,6 +18,7 @@ public class Settings {
     private int greenHighlight = 0;
     private int blueHighlight = 0;
     private float atomFontScale = 1.0f;
+    private float rotation = 0.0f;
     private String imageName;
     private String smiles = "";
     private String subSearchQuery;
@@ -194,6 +195,14 @@ public class Settings {
         public String format(String cppString);
     }
 
+    public float getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(float rotate) {
+        this.rotation = rotation;
+    }
+
     public Hashtable<String, String> getHashTable(LanguageFormat formatter) {
         Hashtable<String, String> ht = new Hashtable<>();
         ht.put("imageWidth", String.valueOf(imageWidth));
@@ -215,6 +224,7 @@ public class Settings {
         ht.put("colorStyle", formatter.format(colorStyle.toString()));
         ht.put("superAtomStyle", formatter.format(superAtomStyle.toString()));
         ht.put("hydrogenStyle", formatter.format(hydrogenStyle.toString()));
+        ht.put("rotation", decimalFormat.format(rotation));
 
         return ht;
     }

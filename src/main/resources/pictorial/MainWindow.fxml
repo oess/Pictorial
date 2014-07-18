@@ -131,7 +131,7 @@
                                      <Insets right="5.0" fx:id="x2" />
                                    </GridPane.margin>
                                  </Slider>
-                                 <ComboBox fx:id="_colorStyle" onAction="#update" prefHeight="21.0" prefWidth="218.0" value="White CPK" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
+                                 <ComboBox fx:id="_colorStyle" onAction="#update" prefWidth="218.0" value="White CPK" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
                                    <items>
                                      <FXCollections fx:factory="observableArrayList">
                                        <String fx:value="White CPK" />
@@ -226,7 +226,7 @@
                                      <Insets right="5.0" fx:id="x2" />
                                    </GridPane.margin>
                                  </ColorPicker>
-                                 <ComboBox id="_atomSterio" fx:id="_atomStereo" onAction="#update" prefHeight="21.0" prefWidth="183.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <ComboBox id="_atomSterio" fx:id="_atomStereo" onAction="#update" prefWidth="183.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                    <items>
                                      <FXCollections fx:factory="observableArrayList">
                                        <String fx:value="Default" />
@@ -239,7 +239,7 @@
                                      <Insets right="5.0" fx:id="x2" />
                                    </GridPane.margin>
                                  </ComboBox>
-                                 <ComboBox id="_bondSterio" fx:id="_bondStereo" onAction="#update" prefHeight="21.0" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <ComboBox id="_bondSterio" fx:id="_bondStereo" onAction="#update" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                    <items>
                                      <FXCollections fx:factory="observableArrayList">
                                        <String fx:value="Default" />
@@ -252,7 +252,7 @@
                                      <Insets right="5.0" fx:id="x2" />
                                    </GridPane.margin>
                                  </ComboBox>
-                                 <ComboBox fx:id="_superAtoms" onAction="#update" prefHeight="21.0" prefWidth="218.0" value="None" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <ComboBox fx:id="_superAtoms" onAction="#update" prefWidth="218.0" value="None" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                    <items>
                                      <FXCollections fx:factory="observableArrayList">
                                        <String fx:value="None" />
@@ -271,7 +271,7 @@
                                      <Insets right="5.0" fx:id="x2" />
                                    </GridPane.margin>
                                  </ComboBox>
-                                 <ComboBox fx:id="_hydrogens" onAction="#update" prefHeight="21.0" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <ComboBox fx:id="_hydrogens" onAction="#update" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                    <items>
                                      <FXCollections fx:factory="observableArrayList">
                                        <String fx:value="Default" />
@@ -288,7 +288,7 @@
                                      <Insets right="5.0" fx:id="x2" />
                                    </GridPane.margin>
                                  </ComboBox>
-                                 <ComboBox fx:id="_aromaticity" onAction="#update" prefHeight="21.0" prefWidth="218.0" value="Kekule" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <ComboBox fx:id="_aromaticity" onAction="#update" prefWidth="218.0" value="Kekule" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                    <items>
                                      <FXCollections fx:factory="observableArrayList">
                                        <String fx:value="Kekule" />
@@ -299,7 +299,11 @@
                                    <GridPane.margin>
                                      <Insets right="5.0" fx:id="x2" />
                                    </GridPane.margin>
-                                 </ComboBox>
+                                 </ComboBox><Label fx:id="_rotationLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Rotation: 0°" GridPane.rowIndex="7">
+<padding>
+<Insets left="5.0" />
+</padding>
+</Label><Slider fx:id="_rotation" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                        </children>
                                     </GridPane>
                                  </children>

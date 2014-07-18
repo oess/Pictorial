@@ -47,10 +47,10 @@ public class Controller implements Initializable {
                      _superAtoms, _hydrogens, _aromaticity;
     
     @FXML
-    private Slider _penSize, _titleSize, _fontSize;
+    private Slider _penSize, _titleSize, _fontSize, _rotation;
     
     @FXML
-    private Label _penLabel, _titleSizeLable, _fontLabel;
+    private Label _penLabel, _titleSizeLable, _fontLabel, _rotationLabel;
     
     @FXML
     private WebView _webView;
@@ -94,6 +94,13 @@ public class Controller implements Initializable {
                 _settings.setAtomFloatScale(p);
             });
 
+        _rotation.valueProperty().addListener( (o, oldVal, newVal)-> {
+            float p = newVal.floatValue();
+            _rotationLabel.setText("Rotation: " + _df.format(p) + "°");
+            _settings.setRotation(p);
+            me.updateImage(null);
+        });
+
         // maintain a set of widgets to disable in case of error
         _widgets.add(_height);         _widgets.add(_width);
         _widgets.add(_title);          _widgets.add(_submatch);
@@ -106,6 +113,7 @@ public class Controller implements Initializable {
         _widgets.add(_fontSize);       _widgets.add(_save);
         _widgets.add(_titleLocTop);    _widgets.add(_gencpp);
         _widgets.add(_gencs);          _widgets.add(_genpy);
+        _widgets.add(_rotation);
     }   
     
     // Most of the OpenEye API calls are demonstrated in this method     
@@ -133,6 +141,13 @@ public class Controller implements Initializable {
                 return;
             }  else { 
                 setSuccessStyle(_input);
+            }
+
+            // rotate the molecule
+            if (_settings.getRotation() != 0.0f) {
+                float[] angles = new float[3];
+                angles[0] = _settings.getRotation();
+                oechem.OEEulerRotate(mol, angles);
             }
             
             // prepare the molecule
