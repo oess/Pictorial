@@ -19,6 +19,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import openeye.oechem.*;
 import openeye.oedepict.*;
+import openeye.oeiupac.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -131,17 +132,20 @@ public class Controller implements Initializable {
             _settings.setSmiles(smiles);
              if(smiles.length() == 0) { 
                 setErrorStyle(_input);
-                throw new RuntimeException("Valid smiles string required.");
+                throw new RuntimeException("Valid SMILES or IUPAC name required.");
             }
             
             // parse the smiles string
             boolean success = oechem.OESmilesToMol(_mol, smiles);
             if (!success) { 
-                setErrorStyle(_input);
-                return;
-            }  else { 
-                setSuccessStyle(_input);
+                success = oeiupac.OEParseIUPACName(_mol, smiles);
+                if (!success) {
+                    setErrorStyle(_input);
+                    return;
+                }
             }
+
+            setSuccessStyle(_input);
             
             // prepare the molecule
             if (!_title.getText().equals("")) { 
