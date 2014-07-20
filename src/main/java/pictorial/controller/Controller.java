@@ -142,13 +142,6 @@ public class Controller implements Initializable {
             }  else { 
                 setSuccessStyle(_input);
             }
-
-            // rotate the molecule
-            if (_settings.getRotation() != 0.0f) {
-                float[] angles = new float[3];
-                angles[0] = _settings.getRotation();
-                oechem.OEEulerRotate(mol, angles);
-            }
             
             // prepare the molecule
             if (!_title.getText().equals("")) { 
@@ -160,6 +153,13 @@ public class Controller implements Initializable {
             success = oedepict.OEPrepareDepiction(_mol, true, true);
             if (!success) { 
                throw new RuntimeException("PrepareDepiction fail");
+            }
+
+            // rotate the molecule
+            if (_settings.getRotation() != 0.0f) {
+                double[] angles = new double[3];
+                angles[0] = _settings.getRotation();
+                oechem.OEEulerRotate(_mol, angles);
             }
             
             int width = getTextFieldIntValue(_width);

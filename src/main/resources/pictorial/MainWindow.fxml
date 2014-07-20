@@ -303,7 +303,7 @@
 <padding>
 <Insets left="5.0" />
 </padding>
-</Label><Slider fx:id="_rotation" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+</Label><Slider fx:id="_rotation" blockIncrement="0.1" max="364.9" min="0.0" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                        </children>
                                     </GridPane>
                                  </children>

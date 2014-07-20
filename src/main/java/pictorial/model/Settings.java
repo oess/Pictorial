@@ -196,11 +196,11 @@ public class Settings {
     }
 
     public float getRotation() {
-        return rotation;
+        return (3.141596f * rotation) / 180.0f;
     }
 
     public void setRotation(float rotate) {
-        this.rotation = rotation;
+        this.rotation = rotate;
     }
 
     public Hashtable<String, String> getHashTable(LanguageFormat formatter) {
