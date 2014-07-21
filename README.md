@@ -24,11 +24,10 @@ Uses Depict to generate images and code samples.
 
 ## Running Pictorial
 
-* `java -jar target/Pictorial-1.0.jar`
-
-Note that version number is subject to change.
+* `java -jar target/Pictorial-1.0-Beta2.jar`
 
 ## Known Issues:
 
 * C++ and C# code generation is not implemented
 * Errors are displayed in the console and not in the UI
+* Generated code isn't as clean as it could be.
