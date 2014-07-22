@@ -218,7 +218,7 @@ public class Settings {
         ht.put("substructure", subSearchQuery);
         ht.put("molTitle", molTitle);
         ht.put("titleLoc", formatter.format(titleLocation.toString()));
-        ht.put("aromaticStyle", formatter.format(titleLocation.toString()));
+        ht.put("aromaticStyle", formatter.format(aromaticStyle.toString()));
         ht.put("atomStereoStyle", formatter.format(atomStereoStyle.toString()));
         ht.put("bondStereoStyle", formatter.format(bondStereoStyle.toString()));
         ht.put("colorStyle", formatter.format(colorStyle.toString()));

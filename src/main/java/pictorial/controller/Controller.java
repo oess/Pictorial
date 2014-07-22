@@ -148,9 +148,9 @@ public class Controller implements Initializable {
             setSuccessStyle(_input);
             
             // prepare the molecule
+            _settings.setMolTitle(_title.getText());
             if (!_title.getText().equals("")) { 
                 _mol.SetTitle(_title.getText());
-                _settings.setMolTitle(_title.getText());
             }
 
             // prepare the depiction
