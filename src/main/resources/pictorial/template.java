@@ -39,8 +39,7 @@ public class ${imageName} {
         oedepict.OEPrepareDepiction(mol, true, true);
 
         <#if rotation != "0.0"> 
-        double[] angles = new double[3];
-        angles[0] = ${rotation};
+        double[] angles = {${rotation}, 0.0f, 0.0f};
         oechem.OEEulerRotate(mol, angles);
         </#if>
 
@@ -72,7 +71,7 @@ public class ${imageName} {
 
         OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight});
         for (OEMatchBase match: subsearch.Match(mol, true)) {
-            oedepict.OEAddHighlighting(display2d, color, OEHighlightStyle.Stick, match);
+            oedepict.OEAddHighlighting(display2d, color, ${highlightStyle}, match);
         }
 
         </#if>

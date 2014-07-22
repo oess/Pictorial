@@ -1,17 +1,38 @@
 from __future__ import print_function
 from openeye.oechem import *
 from openeye.oedepict import *
+from openeye.oeiupac import *
+
+<#assign titleLen = molTitle?length>
+<#assign queryLen = substructure?length>
 
 def makeImage():
+    <#if titleLen != 0>
     molTitle = "${molTitle}"
+    </#if>
+    smiles = "${smiles}"
     mol = OEGraphMol()
-    if not oechem.OESmilesToMol(mol, "${smiles}"):
-        raise Exception("invalid smiles string ${smiles}")
+    success = OESmilesToMol(mol, smiles):
+    if not success:
+        success = OEParseIUPACName(mol, smiles)
+        if not success:
+            raise Exception("invalid smiles string " + smiles)
+
     image = OEImage(${imageWidth}, ${imageHeight})
     bondPen = OEPen(OEBlack, OEBlack, OEFill_On, ${penSize})
 
+    <#if titleLen != 0>
     mol.SetTitle(molTitle)
-    OEPrepareDepiction(mol, True, True)
+
+    </#if>
+    OEPrepareDepiction(mol, True, True) # set the 2d coordinates for the molecule
+    <#if rotation != "0.0"> 
+
+    # rotate the molecule - must be called after OEPepareDepiction
+    angles = [${rotation}, 0.0, 0.0]
+    OEEulerRotate(mol, angles)
+    </#if>
+
     displayOpts = OE2DMolDisplayOptions(${imageWidth}, ${imageHeight}, OEScale_AutoScale)
     displayOpts.SetDefaultBondPen(bondPen)
     displayOpts.SetAromaticStyle(${aromaticStyle})
@@ -22,25 +43,31 @@ def makeImage():
     displayOpts.SetAtomLabelFontScale(${atomFontScale})
     displayOpts.SetAtomColorStyle(${colorStyle})
 
+    <#if titleLen != 0>
+    # set how the title should be displayed
     if len(molTitle):
         titleFont = OEFont()
         titleFont.SetSize(${fontSize})
         displayOpts.SetTitleFont(titleFont)
         displayOpts.SetTitleLocation(${titleLoc})
+    <#else>
+        displayOpts.SetTitleLocation(OETitleLocation_Hidden)
+    </#if>
 
     display2d = OE2DMolDisplay(mol, displayOpts)
 
-    ssquery = "${substructure}";
-    if len(ssquery):
-        subsearch = OESubSearch(ssquery)
-        if not subsearch.IsValid():
-            raise Exception("Invalid substructure query")
+    <#if queryLen != 0 >
+    # add substructure matching to the depiction
+    subsearch = OESubSearch("${substructure}")
+    if not subsearch.IsValid():
+        raise Exception("Invalid substructure query")
 
-        color = OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight})
+    color = OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight})
 
-        for match in subsearch.Match(mol, True):
-            OEAddHighlighting(display2d, color, OEHighlightStyle_Stick, match)
+    for match in subsearch.Match(mol, True):
+        OEAddHighlighting(display2d, color, ${highlightStyle}, match)
 
+    </#if>
     OERenderMolecule(image, display2d)
     OEWriteImage("${imageName}.png", image)
     print("Depiction saved to ${imageName}.png")

@@ -30,6 +30,7 @@ public class Settings {
     private ColorStyle colorStyle;
     private HydrogenStyle hydrogenStyle;
     private SuperAtomStyle superAtomStyle;
+    private HighlightStyle highlightStyle;
 
     public SuperAtomStyle getSuperAtomStyle() {
         return superAtomStyle;
@@ -175,6 +176,14 @@ public class Settings {
         this.colorStyle = colorStyle;
     }
 
+    public HighlightStyle getHiglightStyle() {
+        return highlightStyle;
+    }
+
+    public void setHiglightStyle(HighlightStyle highlight) {
+        this.highlightStyle = highlight;
+    }
+
     public HydrogenStyle getHydrogenStyle() {
         return hydrogenStyle;
     }
@@ -225,6 +234,7 @@ public class Settings {
         ht.put("superAtomStyle", formatter.format(superAtomStyle.toString()));
         ht.put("hydrogenStyle", formatter.format(hydrogenStyle.toString()));
         ht.put("rotation", decimalFormat.format(rotation));
+        ht.put("highlightStyle", formatter.format(highlightStyle.toString()));
 
         return ht;
     }

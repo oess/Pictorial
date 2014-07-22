@@ -45,7 +45,7 @@ public class Controller implements Initializable {
                      
     @FXML
     private ComboBox _colorStyle, _atomStereo, _bondStereo, 
-                     _superAtoms, _hydrogens, _aromaticity;
+                     _superAtoms, _hydrogens, _aromaticity, _highlightStyle;
     
     @FXML
     private Slider _penSize, _titleSize, _fontSize, _rotation;
@@ -114,7 +114,7 @@ public class Controller implements Initializable {
         _widgets.add(_fontSize);       _widgets.add(_save);
         _widgets.add(_titleLocTop);    _widgets.add(_gencpp);
         _widgets.add(_gencs);          _widgets.add(_genpy);
-        _widgets.add(_rotation);
+        _widgets.add(_rotation);       _widgets.add(_highlightStyle);
     }   
     
     // Most of the OpenEye API calls are demonstrated in this method     
@@ -202,6 +202,7 @@ public class Controller implements Initializable {
                 } else { 
                     setSuccessStyle(_submatch);
                     _color.setDisable(false);
+                    _highlightStyle.setDisable(false);
                 }
               
                 boolean unique = true;
@@ -214,11 +215,12 @@ public class Controller implements Initializable {
                                           (int)(255*c.getGreen()),
                                           (int)(255*c.getBlue()));
                 for (OEMatchBase match : ss.Match(_mol, unique)) {
-                    oedepict.OEAddHighlighting(disp, oec, OEHighlightStyle.Stick, match);
+                    oedepict.OEAddHighlighting(disp, oec, getHighlightStyleValue(), match);
                 }
             } else { 
                 setSuccessStyle(_submatch);
                 _color.setDisable(true);
+                _highlightStyle.setDisable(true);
                 _settings.setSubSearchQuery("");
             }
             
@@ -552,6 +554,35 @@ public class Controller implements Initializable {
             default:
                 setErrorStyle(_colorStyle);
                 throw new RuntimeException("Invalid color style: [" + colorStyle + "]");
+        }
+        setSuccessStyle(_colorStyle);
+        return val;
+    }
+
+    private int getHighlightStyleValue() {
+        int val = -1;
+        String style = _highlightStyle.getValue().toString();
+
+        switch(style) {
+            case "Color":
+                val = OEHighlightStyle.Color;
+                _settings.setHiglightStyle(HighlightStyle.COLOR);
+                break;
+            case "Stick":
+                val = OEHighlightStyle.Stick;
+                _settings.setHiglightStyle(HighlightStyle.STICK);
+                break;
+            case "Ball And Stick":
+                val = OEHighlightStyle.BallAndStick;
+                _settings.setHiglightStyle(HighlightStyle.BALL_AND_STICK);
+                break;
+            case "Cogwheel":
+                val = OEHighlightStyle.Cogwheel;
+                _settings.setHiglightStyle(HighlightStyle.COGWHEEL);
+                break;
+            default:
+                setErrorStyle(_colorStyle);
+                throw new RuntimeException("Invalid highligh style: [" + style + "]");
         }
         setSuccessStyle(_colorStyle);
         return val;
