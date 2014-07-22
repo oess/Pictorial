@@ -1,5 +1,6 @@
 import openeye.oechem.*;
 import openeye.oedepict.*;
+import openeye.oeiupac.*;
 
 <#assign titleLen = molTitle?length>
 <#assign queryLen = substructure?length>
