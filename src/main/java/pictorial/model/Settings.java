@@ -193,7 +193,8 @@ public class Settings {
     }
 
     public void setImageName(String name) {
-        this.imageName = name;
+
+        this.imageName = name.replace(' ', '_');
     }
 
     public String getImageName() {

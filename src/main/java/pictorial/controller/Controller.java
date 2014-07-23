@@ -619,7 +619,7 @@ public class Controller implements Initializable {
         Template temp = null;
         try {
             temp = cfg.getTemplate("template" + extension);
-            Writer fw = new FileWriter(tmp.getAbsoluteFile());
+            Writer fw = new FileWriter(new File(tmp.getParent(), _settings.getImageName()) + extension);
             temp.process(_settings.getHashTable(langFormat), fw);
             fw.close();
         } catch (IOException e) {
