@@ -9,7 +9,7 @@ import openeye.oedepict.OEBondStereoStyle;
 public enum BondStereoStyle {
     DEFAULT(OEBondStereoStyle.Default, "OEBondStereoStyle::Default"),
     CIPBONDSTEREO(OEBondStereoStyle.Display.CIPBondStereo, "OEBondStereoStyle::CIPBondStereo"),
-    HIDDEN(OEBondStereoStyle.Hidden, "OEBondStereoStyle_Hidden"),
+    HIDDEN(OEBondStereoStyle.Hidden, "OEBondStereoStyle::Hidden"),
     ALL(OEBondStereoStyle.Display.All,  "OEBondStereoStyle::Display::CIPBondStereo + OEBondStereoStyle::Display::BondStereo");
 
     private int _value;
