@@ -156,7 +156,7 @@ public class Controller implements Initializable {
             // prepare the depiction
             success = oedepict.OEPrepareDepiction(_mol, true, true);
             if (!success) { 
-               throw new RuntimeException("PrepareDepiction fail");
+               throw new RuntimeException("PrepareDepiction failed");
             }
 
             // rotate the molecule
