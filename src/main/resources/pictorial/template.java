@@ -28,7 +28,7 @@ public class ${imageName} {
         if (!success) { 
             success = oeiupac.OEParseIUPACName(mol, smiles);
             if (!success) {
-                throw new RuntimeException("invalid smiles string" + smiles);
+                throw new RuntimeException("Invalid smiles string " + smiles);
             }
         }
 
@@ -44,6 +44,13 @@ public class ${imageName} {
         </#if>
 
         OE2DMolDisplayOptions displayOpts = new OE2DMolDisplayOptions(imageWidth, imageHeight, OEScale.AutoScale);
+        <#if titleLen != 0>
+        OEFont titleFont = new OEFont();
+        titleFont.SetSize(${fontSize});
+        displayOpts.SetTitleFont(titleFont);
+        <#else>
+        displayOpts.SetTitleLocation(OETitleLocation.Hidden);
+        </#if>
         displayOpts.SetDefaultBondPen(bondPen);
         displayOpts.SetAromaticStyle(${aromaticStyle});
         displayOpts.SetBondStereoStyle(${bondStereoStyle});
@@ -52,14 +59,6 @@ public class ${imageName} {
         displayOpts.SetHydrogenStyle(${hydrogenStyle});
         displayOpts.SetAtomLabelFontScale(${atomFontScale});
         displayOpts.SetAtomColorStyle(${colorStyle});
-
-        <#if titleLen != 0>
-        OEFont titleFont = new OEFont();
-        titleFont.SetSize(${fontSize});
-        displayOpts.SetTitleFont(titleFont);
-        <#else>
-        displayOpts.SetTitleLocation(OETitleLocation.Hidden);
-        </#if>
 
         OE2DMolDisplay display2d = new OE2DMolDisplay(mol, displayOpts);
 
