@@ -21,8 +21,8 @@ public class Settings {
     private float rotation = 0.0f;
     private String imageName;
     private String smiles = "";
-    private String subSearchQuery;
-    private String molTitle;
+    private String subSearchQuery = "";
+    private String molTitle = "";
     private TitleLocation titleLocation;
     private AromaticStyle aromaticStyle;
     private AtomStereoStyle atomStereoStyle;
@@ -30,7 +30,7 @@ public class Settings {
     private ColorStyle colorStyle;
     private HydrogenStyle hydrogenStyle;
     private SuperAtomStyle superAtomStyle;
-    private HighlightStyle highlightStyle;
+    private HighlightStyle highlightStyle = HighlightStyle.COLOR;
 
     public SuperAtomStyle getSuperAtomStyle() {
         return superAtomStyle;
