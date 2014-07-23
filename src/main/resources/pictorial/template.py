@@ -12,7 +12,7 @@ def makeImage():
     </#if>
     smiles = "${smiles}"
     mol = OEGraphMol()
-    success = OESmilesToMol(mol, smiles):
+    success = OESmilesToMol(mol, smiles)
     if not success:
         success = OEParseIUPACName(mol, smiles)
         if not success:
