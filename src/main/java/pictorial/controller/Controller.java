@@ -644,7 +644,8 @@ public class Controller implements Initializable {
 
     @FXML
     public void generateCpp(ActionEvent event) {
-
+        Settings.LanguageFormat cppFormat = s -> s;
+        generateCode("C++", ".cpp", cppFormat);
     }
 
     @FXML
@@ -655,6 +656,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void generateCSharp(ActionEvent event) {
-
+        Settings.LanguageFormat csFormat = s -> s.replace("::", ".");
+        generateCode("C#", ".cs", csFormat);
     }
 }
