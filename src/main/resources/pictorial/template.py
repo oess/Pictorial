@@ -51,7 +51,7 @@ def makeImage():
         displayOpts.SetTitleFont(titleFont)
         displayOpts.SetTitleLocation(${titleLoc})
     <#else>
-        displayOpts.SetTitleLocation(OETitleLocation_Hidden)
+    displayOpts.SetTitleLocation(OETitleLocation_Hidden)
     </#if>
 
     display2d = OE2DMolDisplay(mol, displayOpts)
