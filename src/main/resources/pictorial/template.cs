@@ -1,21 +1,21 @@
-import openeye.oechem.*;
-import openeye.oedepict.*;
-import openeye.oeiupac.*;
 
+using System;
+using OpenEye.OEChem;
+using OpenEye.OEDepict;
+using OpenEye.OEIUPAC;
 <#assign titleLen = molTitle?length>
 <#assign queryLen = substructure?length>
 
 public class ${imageName} {
 
     <#if titleLen != 0>
-    private String molTitle = "${molTitle}";
+    private string molTitle = "${molTitle}";
     </#if>
-    private String smiles = "${smiles}";
-
+    private string smiles = "${smiles}";
     <#if queryLen != 0>
-    private String ssquery = "${substructure}";
+    private string ssquery = "${substructure}";
     </#if>
-    private OEPen bondPen = new OEPen(oechem.getOEBlack(), oechem.getOEBlack(), OEFill.On, ${penSize});
+    private OEPen bondPen = new OEPen(OEChem.OEBlack, OEChem.OEBlack, OEFill.On, ${penSize});
     private int imageWidth = ${imageWidth};
     private int imageHeight= ${imageHeight};
 
@@ -24,11 +24,11 @@ public class ${imageName} {
         OEGraphMol mol = new OEGraphMol();
 
         // parse the smiles string
-        boolean success = oechem.OESmilesToMol(mol, smiles);
+        bool success = OEChem.OESmilesToMol(mol, smiles);
         if (!success) { 
-            success = oeiupac.OEParseIUPACName(mol, smiles);
+            success = OEIUPAC.OEParseIUPACName(mol, smiles);
             if (!success) {
-                throw new RuntimeException("Invalid smiles string " + smiles);
+                throw new Exception("Invalid smiles string " + smiles);
             }
         }
 
@@ -36,15 +36,17 @@ public class ${imageName} {
         <#if titleLen != 0>
         mol.SetTitle(molTitle);
         </#if>
-        oedepict.OEPrepareDepiction(mol, true, true);
+        OEDepict.OEPrepareDepiction(mol, true, true); // add 2D coordinates to the molecule
 
         <#if rotation != "0.0"> 
+        // rotate the molecule
         double[] angles = {${rotation}, 0.0f, 0.0f};
-        oechem.OEEulerRotate(mol, angles);
-        </#if>
+        OEChem.OEEulerRotate(mol, angles);
 
+        </#if>
         OE2DMolDisplayOptions displayOpts = new OE2DMolDisplayOptions(imageWidth, imageHeight, OEScale.AutoScale);
         <#if titleLen != 0>
+        // set the title font and location
         OEFont titleFont = new OEFont();
         titleFont.SetSize(${fontSize});
         displayOpts.SetTitleFont(titleFont);
@@ -63,24 +65,26 @@ public class ${imageName} {
         OE2DMolDisplay display2d = new OE2DMolDisplay(mol, displayOpts);
 
         <#if queryLen != 0>
+        // Substructure highlighting
         OESubSearch subsearch = new OESubSearch(ssquery);
         if (!subsearch.IsValid()) {
-            throw new RuntimeException("Invalid substructure query: " + ssquery);
+            throw new Exception("Invalid substructure query: " + ssquery);
         }
 
         OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight});
-        for (OEMatchBase match: subsearch.Match(mol, true)) {
-            oedepict.OEAddHighlighting(display2d, color, ${highlightStyle}, match);
+        foreach (OEMatchBase match in subsearch.Match(mol, true)) {
+            OEDepict.OEAddHighlighting(display2d, color, ${highlightStyle}, match);
         }
 
         </#if>
-        oedepict.OERenderMolecule(image, display2d);
-        oedepict.OEWriteImage("${imageName}.png", image);
-        System.out.println("Depiction saved to ${imageName}.png");
+        OEDepict.OERenderMolecule(image, display2d);
+        OEDepict.OEWriteImage("${imageName}.png", image);
+        Console.WriteLine("Depiction saved to ${imageName}.png");
     }
 
-    public static void main(String[] args) {
+    public static int Main(string[] args) {
         ${imageName} obj = new ${imageName}();
         obj.makeImage();
+        return 0;
     }
 } 

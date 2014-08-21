@@ -12,9 +12,9 @@ public enum HydrogenStyle {
     EXPLICT_HETERO(OEHydrogenStyle.ExplicitHetero, "OEHydrogenStyle::ExplicitHetero"),
     EXPLICIT_TERMINAL(OEHydrogenStyle.ExplicitTerminal, "OEHydrogenStyle::ExplicitTerminal"),
     IMPLICIT_ALL(OEHydrogenStyle.ImplicitAll, "OEHydrogenStyle::ImplicitAll"),
-    IMPLICIT_HETERO(OEHydrogenStyle.ImplicitHetero, "OEHydrogenStyle.ImplicitHetero"),
-    IMPLICIT_TERMINAL(OEHydrogenStyle.ImplicitTerminal, "OEHydrogenStyle.ImplicitHetero"),
-    HIDDEN(OEHydrogenStyle.Hidden, "OEHydrogenStyle.Hidden");
+    IMPLICIT_HETERO(OEHydrogenStyle.ImplicitHetero, "OEHydrogenStyle::ImplicitHetero"),
+    IMPLICIT_TERMINAL(OEHydrogenStyle.ImplicitTerminal, "OEHydrogenStyle::ImplicitTerminal"),
+    HIDDEN(OEHydrogenStyle.Hidden, "OEHydrogenStyle::Hidden");
 
     private int _value;
     private String _source;

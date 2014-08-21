@@ -4,17 +4,17 @@
 
 package pictorial.model;
 
-import openeye.oedepict.OEBondStereoStyle;
+import openeye.oedepict.OEHighlightStyle;
 
-public enum BondStereoStyle {
-    DEFAULT(OEBondStereoStyle.Default, "OEBondStereoStyle::Default"),
-    CIPBONDSTEREO(OEBondStereoStyle.Display.CIPBondStereo, "OEBondStereoStyle::CIPBondStereo"),
-    HIDDEN(OEBondStereoStyle.Hidden, "OEBondStereoStyle::Hidden"),
-    ALL(OEBondStereoStyle.Display.All,  "OEBondStereoStyle::Display::CIPBondStereo + OEBondStereoStyle::Display::BondStereo");
+public enum HighlightStyle {
+    COLOR(OEHighlightStyle.Color, "OEHighlightStyle::Color"),
+    STICK(OEHighlightStyle.Stick, "OEHighlightStyle::Stick"),
+    BALL_AND_STICK(OEHighlightStyle.BallAndStick, "OEHighlightStyle::BallAndStick"),
+    COGWHEEL(OEHighlightStyle.Cogwheel, "OEHighlightStyle::Cogwheel");
 
     private int _value;
     private String _source;
-    BondStereoStyle(int val, String source) {
+    private HighlightStyle(int val, String source) {
         _source = source;
         _value = val;
     }

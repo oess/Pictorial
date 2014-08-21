@@ -18,10 +18,11 @@ public class Settings {
     private int greenHighlight = 0;
     private int blueHighlight = 0;
     private float atomFontScale = 1.0f;
+    private float rotation = 0.0f;
     private String imageName;
     private String smiles = "";
-    private String subSearchQuery;
-    private String molTitle;
+    private String subSearchQuery = "";
+    private String molTitle = "";
     private TitleLocation titleLocation;
     private AromaticStyle aromaticStyle;
     private AtomStereoStyle atomStereoStyle;
@@ -29,6 +30,7 @@ public class Settings {
     private ColorStyle colorStyle;
     private HydrogenStyle hydrogenStyle;
     private SuperAtomStyle superAtomStyle;
+    private HighlightStyle highlightStyle = HighlightStyle.COLOR;
 
     public SuperAtomStyle getSuperAtomStyle() {
         return superAtomStyle;
@@ -174,6 +176,14 @@ public class Settings {
         this.colorStyle = colorStyle;
     }
 
+    public HighlightStyle getHiglightStyle() {
+        return highlightStyle;
+    }
+
+    public void setHiglightStyle(HighlightStyle highlight) {
+        this.highlightStyle = highlight;
+    }
+
     public HydrogenStyle getHydrogenStyle() {
         return hydrogenStyle;
     }
@@ -183,7 +193,8 @@ public class Settings {
     }
 
     public void setImageName(String name) {
-        this.imageName = name;
+
+        this.imageName = name.replace(' ', '_');
     }
 
     public String getImageName() {
@@ -192,6 +203,14 @@ public class Settings {
 
     public interface LanguageFormat {
         public String format(String cppString);
+    }
+
+    public float getRotation() {
+        return (3.141596f * rotation) / 180.0f;
+    }
+
+    public void setRotation(float rotate) {
+        this.rotation = rotate;
     }
 
     public Hashtable<String, String> getHashTable(LanguageFormat formatter) {
@@ -209,12 +228,14 @@ public class Settings {
         ht.put("substructure", subSearchQuery);
         ht.put("molTitle", molTitle);
         ht.put("titleLoc", formatter.format(titleLocation.toString()));
-        ht.put("aromaticStyle", formatter.format(titleLocation.toString()));
+        ht.put("aromaticStyle", formatter.format(aromaticStyle.toString()));
         ht.put("atomStereoStyle", formatter.format(atomStereoStyle.toString()));
         ht.put("bondStereoStyle", formatter.format(bondStereoStyle.toString()));
         ht.put("colorStyle", formatter.format(colorStyle.toString()));
         ht.put("superAtomStyle", formatter.format(superAtomStyle.toString()));
         ht.put("hydrogenStyle", formatter.format(hydrogenStyle.toString()));
+        ht.put("rotation", decimalFormat.format(rotation));
+        ht.put("highlightStyle", formatter.format(highlightStyle.toString()));
 
         return ht;
     }

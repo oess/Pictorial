@@ -19,6 +19,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import openeye.oechem.*;
 import openeye.oedepict.*;
+import openeye.oeiupac.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -44,13 +45,13 @@ public class Controller implements Initializable {
                      
     @FXML
     private ComboBox _colorStyle, _atomStereo, _bondStereo, 
-                     _superAtoms, _hydrogens, _aromaticity;
+                     _superAtoms, _hydrogens, _aromaticity, _highlightStyle;
     
     @FXML
-    private Slider _penSize, _titleSize, _fontSize;
+    private Slider _penSize, _titleSize, _fontSize, _rotation;
     
     @FXML
-    private Label _penLabel, _titleSizeLable, _fontLabel;
+    private Label _penLabel, _titleSizeLable, _fontLabel, _rotationLabel;
     
     @FXML
     private WebView _webView;
@@ -94,6 +95,13 @@ public class Controller implements Initializable {
                 _settings.setAtomFloatScale(p);
             });
 
+        _rotation.valueProperty().addListener( (o, oldVal, newVal)-> {
+            float p = newVal.floatValue();
+            _rotationLabel.setText("Rotation: " + _df.format(p) + "°");
+            _settings.setRotation(p);
+            me.updateImage(null);
+        });
+
         // maintain a set of widgets to disable in case of error
         _widgets.add(_height);         _widgets.add(_width);
         _widgets.add(_title);          _widgets.add(_submatch);
@@ -106,6 +114,7 @@ public class Controller implements Initializable {
         _widgets.add(_fontSize);       _widgets.add(_save);
         _widgets.add(_titleLocTop);    _widgets.add(_gencpp);
         _widgets.add(_gencs);          _widgets.add(_genpy);
+        _widgets.add(_rotation);       _widgets.add(_highlightStyle);
     }   
     
     // Most of the OpenEye API calls are demonstrated in this method     
@@ -123,28 +132,38 @@ public class Controller implements Initializable {
             _settings.setSmiles(smiles);
              if(smiles.length() == 0) { 
                 setErrorStyle(_input);
-                throw new RuntimeException("Valid smiles string required.");
+                throw new RuntimeException("Valid SMILES or IUPAC name required.");
             }
             
             // parse the smiles string
             boolean success = oechem.OESmilesToMol(_mol, smiles);
             if (!success) { 
-                setErrorStyle(_input);
-                return;
-            }  else { 
-                setSuccessStyle(_input);
+                success = oeiupac.OEParseIUPACName(_mol, smiles);
+                if (!success) {
+                    setErrorStyle(_input);
+                    return;
+                }
             }
+
+            setSuccessStyle(_input);
             
             // prepare the molecule
+            _settings.setMolTitle(_title.getText());
             if (!_title.getText().equals("")) { 
                 _mol.SetTitle(_title.getText());
-                _settings.setMolTitle(_title.getText());
             }
 
             // prepare the depiction
             success = oedepict.OEPrepareDepiction(_mol, true, true);
             if (!success) { 
-               throw new RuntimeException("PrepareDepiction fail");
+               throw new RuntimeException("PrepareDepiction failed");
+            }
+
+            // rotate the molecule
+            if (_settings.getRotation() != 0.0f) {
+                double[] angles = new double[3];
+                angles[0] = _settings.getRotation();
+                oechem.OEEulerRotate(_mol, angles);
             }
             
             int width = getTextFieldIntValue(_width);
@@ -183,6 +202,7 @@ public class Controller implements Initializable {
                 } else { 
                     setSuccessStyle(_submatch);
                     _color.setDisable(false);
+                    _highlightStyle.setDisable(false);
                 }
               
                 boolean unique = true;
@@ -195,11 +215,12 @@ public class Controller implements Initializable {
                                           (int)(255*c.getGreen()),
                                           (int)(255*c.getBlue()));
                 for (OEMatchBase match : ss.Match(_mol, unique)) {
-                    oedepict.OEAddHighlighting(disp, oec, OEHighlightStyle.Stick, match);
+                    oedepict.OEAddHighlighting(disp, oec, getHighlightStyleValue(), match);
                 }
             } else { 
                 setSuccessStyle(_submatch);
                 _color.setDisable(true);
+                _highlightStyle.setDisable(true);
                 _settings.setSubSearchQuery("");
             }
             
@@ -538,6 +559,35 @@ public class Controller implements Initializable {
         return val;
     }
 
+    private int getHighlightStyleValue() {
+        int val = -1;
+        String style = _highlightStyle.getValue().toString();
+
+        switch(style) {
+            case "Color":
+                val = OEHighlightStyle.Color;
+                _settings.setHiglightStyle(HighlightStyle.COLOR);
+                break;
+            case "Stick":
+                val = OEHighlightStyle.Stick;
+                _settings.setHiglightStyle(HighlightStyle.STICK);
+                break;
+            case "Ball And Stick":
+                val = OEHighlightStyle.BallAndStick;
+                _settings.setHiglightStyle(HighlightStyle.BALL_AND_STICK);
+                break;
+            case "Cogwheel":
+                val = OEHighlightStyle.Cogwheel;
+                _settings.setHiglightStyle(HighlightStyle.COGWHEEL);
+                break;
+            default:
+                setErrorStyle(_colorStyle);
+                throw new RuntimeException("Invalid highligh style: [" + style + "]");
+        }
+        setSuccessStyle(_colorStyle);
+        return val;
+    }
+
     private void generateCode(String language, String extension, Settings.LanguageFormat langFormat) { 
         final String filter = String.format("%s (*%s)", language, extension);
         FileChooser fc = new FileChooser();
@@ -569,7 +619,7 @@ public class Controller implements Initializable {
         Template temp = null;
         try {
             temp = cfg.getTemplate("template" + extension);
-            Writer fw = new FileWriter(tmp.getAbsoluteFile());
+            Writer fw = new FileWriter(new File(tmp.getParent(), _settings.getImageName()) + extension);
             temp.process(_settings.getHashTable(langFormat), fw);
             fw.close();
         } catch (IOException e) {
@@ -594,7 +644,8 @@ public class Controller implements Initializable {
 
     @FXML
     public void generateCpp(ActionEvent event) {
-
+        Settings.LanguageFormat cppFormat = s -> s;
+        generateCode("C++", ".cpp", cppFormat);
     }
 
     @FXML
@@ -605,6 +656,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void generateCSharp(ActionEvent event) {
-
+        Settings.LanguageFormat csFormat = s -> s.replace("::", ".");
+        generateCode("C#", ".cs", csFormat);
     }
 }

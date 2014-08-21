@@ -9,7 +9,7 @@ import openeye.oedepict.OEAtomStereoStyle;
 public enum AtomStereoStyle {
     DEFAULT(OEAtomStereoStyle.Default, "OEAtomStereoStyle::Default"),
     CIPATOMSTEREO(OEAtomStereoStyle.Display.CIPAtomStereo, "OEAtomStereoStyle::Display::CIPAtomStereo"),
-    HIDDEN(OEAtomStereoStyle.Hidden, "OEAtomStereoStyle_Hidden"),
+    HIDDEN(OEAtomStereoStyle.Hidden, "OEAtomStereoStyle::Hidden"),
     ALL(OEAtomStereoStyle.Display.All, "OEAtomStereoStyle::Display::CIPAtomStereo + OEAtomStereoStyle::Display::AtomStereo");
 
     private int _value;
