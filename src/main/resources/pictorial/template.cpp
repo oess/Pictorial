@@ -54,6 +54,7 @@ class ${imageName}
         bool success = OESmilesToMol(mol, smiles);
         if (!success) 
         { 
+            mol.Clear();
             success = OEParseIUPACName(mol, smiles.c_str());
             if (!success)
                 OEThrow.Fatal("Invalid smiles string %s", smiles.c_str());
@@ -72,6 +73,7 @@ class ${imageName}
         </#if>
         OE2DMolDisplayOptions displayOpts(imageWidth, imageHeight, OEScale::AutoScale);
         <#if titleLen != 0>
+        // set the title font and location
         OEFont titleFont;
         titleFont.SetSize(${fontSize});
         displayOpts.SetTitleFont(titleFont);

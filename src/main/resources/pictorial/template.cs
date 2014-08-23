@@ -26,6 +26,7 @@ public class ${imageName} {
         // parse the smiles string
         bool success = OEChem.OESmilesToMol(mol, smiles);
         if (!success) { 
+            mol.Clear();
             success = OEIUPAC.OEParseIUPACName(mol, smiles);
             if (!success) {
                 throw new Exception("Invalid smiles string " + smiles);
@@ -50,6 +51,7 @@ public class ${imageName} {
         OEFont titleFont = new OEFont();
         titleFont.SetSize(${fontSize});
         displayOpts.SetTitleFont(titleFont);
+        displayOpts.SetTitleLocation(${titleLoc});
         <#else>
         displayOpts.SetTitleLocation(OETitleLocation.Hidden);
         </#if>
