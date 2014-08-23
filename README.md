@@ -24,7 +24,7 @@ Uses Depict to generate images and code samples.
 
 ## Running Pictorial
 
-* `java -jar target/Pictorial-1.0-Beta3.jar`
+* `java -jar target/Pictorial-1.0-Beta4.jar`
 
 ## Known Issues:
 
