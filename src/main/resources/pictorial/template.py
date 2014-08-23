@@ -14,6 +14,7 @@ def makeImage():
     mol = OEGraphMol()
     success = OESmilesToMol(mol, smiles)
     if not success:
+        mol.Clear();
         success = OEParseIUPACName(mol, smiles)
         if not success:
             raise Exception("invalid smiles string " + smiles)
@@ -45,11 +46,10 @@ def makeImage():
 
     <#if titleLen != 0>
     # set how the title should be displayed
-    if len(molTitle):
-        titleFont = OEFont()
-        titleFont.SetSize(${fontSize})
-        displayOpts.SetTitleFont(titleFont)
-        displayOpts.SetTitleLocation(${titleLoc})
+    titleFont = OEFont()
+    titleFont.SetSize(${fontSize})
+    displayOpts.SetTitleFont(titleFont)
+    displayOpts.SetTitleLocation(${titleLoc})
     <#else>
     displayOpts.SetTitleLocation(OETitleLocation_Hidden)
     </#if>
