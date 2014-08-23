@@ -138,6 +138,7 @@ public class Controller implements Initializable {
             // parse the smiles string
             boolean success = oechem.OESmilesToMol(_mol, smiles);
             if (!success) { 
+                _mol.Clear();
                 success = oeiupac.OEParseIUPACName(_mol, smiles);
                 if (!success) {
                     setErrorStyle(_input);
