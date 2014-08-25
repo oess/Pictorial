@@ -117,7 +117,9 @@ public class Settings {
     }
 
     public void setSmiles(String smiles) {
-        this.smiles = smiles;
+        // escape any backslashes so generated code
+        // will compile properly
+        this.smiles = smiles.replace("\\", "\\\\");
     }
 
     public String getSubSearchQuery() {
