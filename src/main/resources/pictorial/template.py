@@ -30,7 +30,8 @@ def makeImage():
     <#if rotation != "0.0"> 
 
     # rotate the molecule - must be called after OEPepareDepiction
-    angles = [${rotation}, 0.0, 0.0]
+    angles = OEDoubleArray(3)
+    angles[0] = ${rotation}
     OEEulerRotate(mol, angles)
     </#if>
 
