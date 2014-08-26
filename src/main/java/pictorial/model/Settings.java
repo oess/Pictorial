@@ -236,7 +236,7 @@ public class Settings {
         ht.put("colorStyle", formatter.format(colorStyle.toString()));
         ht.put("superAtomStyle", formatter.format(superAtomStyle.toString()));
         ht.put("hydrogenStyle", formatter.format(hydrogenStyle.toString()));
-        ht.put("rotation", decimalFormat.format(getRotation(rotation)));
+        ht.put("rotation", decimalFormat.format(getRotation()));
         ht.put("highlightStyle", formatter.format(highlightStyle.toString()));
 
         return ht;
