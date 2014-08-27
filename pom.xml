@@ -4,7 +4,7 @@
 
     <groupId>Pictorial</groupId>
     <artifactId>Pictorial</artifactId>
-    <version>1.0-Beta4</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>Pictorial</name>
