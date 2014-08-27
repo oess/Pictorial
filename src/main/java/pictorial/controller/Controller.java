@@ -243,9 +243,7 @@ public class Controller implements Initializable {
             if(saveFile != null) {
                 // JavaFX FileChooser doesn't set the extension if the user didn't pick one.
                 String path = saveFile.getAbsolutePath();
-                if(!path.endsWith(".svg") && !path.endsWith(".png")) {
-                    path += ".svg";
-                } 
+
                 success = oedepict.OEWriteImage(path, img);
                 if (!success) { 
                     throw new RuntimeException("OEWriteImage failed");
@@ -315,15 +313,20 @@ public class Controller implements Initializable {
     @FXML
     public void saveImage(ActionEvent event) { 
         FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG (*.svg)", "*.svg"));
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG (*.png)", "*.png"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG (*.svg)", ".svg"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG (*.png)", ".png"));
         fc.titleProperty().set("Save Image");
         fc.setInitialDirectory(_savePath);
         File tmp = fc.showSaveDialog(_webView.getScene().getWindow());
-        if (tmp != null) { 
+        if (tmp != null) {
+            String path = tmp.getAbsolutePath();
+            if(!path.endsWith(".svg") && !path.endsWith(".png")) {
+                path += fc.getSelectedExtensionFilter().getExtensions().get(0);
+                tmp = new File(path);
+            }
             updateImage(tmp);
             _savePath = tmp.getAbsoluteFile().getParentFile();
-        }       
+        }
     }
     
     private void setErrorStyle(Node widget) {
