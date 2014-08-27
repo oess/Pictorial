@@ -64,6 +64,12 @@ public class Controller implements Initializable {
     
     @FXML
     private RadioButton _titleLocTop, _titleLocBottom;
+
+    @FXML
+    private Accordion _accordian;
+
+    @FXML
+    private TitledPane _imagePropsPane;
     
     private LinkedHashSet<Node> _widgets = new LinkedHashSet<>();
     private final String _errorStyle = "-fx-background-color: red;";
@@ -115,7 +121,10 @@ public class Controller implements Initializable {
         _widgets.add(_titleLocTop);    _widgets.add(_gencpp);
         _widgets.add(_gencs);          _widgets.add(_genpy);
         _widgets.add(_rotation);       _widgets.add(_highlightStyle);
-    }   
+
+        // show the image properties
+        _accordian.setExpandedPane(_imagePropsPane);
+    }
     
     // Most of the OpenEye API calls are demonstrated in this method     
     // To create a depiction from a smiles string:

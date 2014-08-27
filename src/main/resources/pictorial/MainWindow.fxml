@@ -11,9 +11,9 @@
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="689.0" minWidth="1024.0" prefHeight="703.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pictorial.controller.Controller">
   <children><BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 <right>
-            <Accordion BorderPane.alignment="CENTER" SplitPane.resizableWithParent="false">
+            <Accordion fx:id="_accordian" BorderPane.alignment="CENTER" SplitPane.resizableWithParent="false">
               <panes>
-                <TitledPane animated="false" text="Image Properties">
+                <TitledPane fx:id="_imagePropsPane" animated="false" text="Image Properties">
                   <content>
                         <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="627.0" prefViewportWidth="298.0">
                            <content>
@@ -155,7 +155,7 @@
                         <Font size="16.0" />
                      </font>
                 </TitledPane>
-                <TitledPane animated="false" text="Molecule Properties">
+                <TitledPane animated="false" expanded="false" text="Molecule Properties">
                   <content>
                         <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="613.0" prefViewportWidth="298.0">
                            <content>
@@ -310,7 +310,7 @@
                                                 <Insets left="5.0" />
                                              </padding>
                                           </Label>
-                                          <ComboBox fx:id="_highlightStyle" onAction="#update" value="Color" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <ComboBox fx:id="_highlightStyle" onAction="#update" prefWidth="218.0" value="Color" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                               <items>
                                                   <FXCollections fx:factory="observableArrayList">
                                                       <String fx:value="Color" />
@@ -334,7 +334,7 @@
                         <Font size="16.0" />
                      </font>
                 </TitledPane>
-                <TitledPane animated="false" text="Code Generation">
+                <TitledPane animated="false" expanded="false" text="Code Generation">
                   <content>
                         <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="608.0" prefViewportWidth="361.0">
                            <content>
