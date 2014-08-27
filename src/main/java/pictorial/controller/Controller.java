@@ -231,13 +231,14 @@ public class Controller implements Initializable {
                 throw new RuntimeException("OERenderMolecule failed");
             }
 
-            byte[] imgBytes = oedepict.OEWriteImageToByteArray("svg", img);
+            byte[] imgBytes = oedepict.OEWriteImageToByteArray("bsvg", img);
             if (imgBytes == null) { 
                 throw new RuntimeException("OEWriteImageToByteArray failed");
             }
+            String content = "<div style=\"border: 1px solid black;width:" + width + "px;height:" + height + "px;margin:0 auto;position:relative;\" align='center'>" +
+                            new String(imgBytes) + "</div>";
+            _webView.getEngine().loadContent(content);
 
-            _webView.getEngine().loadContent(new String(imgBytes));
-            
             // write to save file
             if(saveFile != null) {
                 // JavaFX FileChooser doesn't set the extension if the user didn't pick one.
