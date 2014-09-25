@@ -6,7 +6,7 @@ Uses Depict to generate images and code samples.
 ## Requirements
 
 * Java JDK 8 x64: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-* Maven 3.22+: http://maven.apache.org/download.cgi
+* Maven 3.2+: http://maven.apache.org/download.cgi
 
 ## Building
 
