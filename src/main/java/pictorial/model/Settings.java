@@ -7,29 +7,28 @@ package pictorial.model;
 import java.text.DecimalFormat;
 import java.util.Hashtable;
 
-// TODO: these could be properties?
 public class Settings {
     private static final DecimalFormat decimalFormat = new DecimalFormat("0.0");
     private int imageWidth = 600;
     private int imageHeight = 600;
     private int penSize = 2;
     private int fontSize = 40;
-    private int redHighlight = 0;
-    private int greenHighlight = 0;
-    private int blueHighlight = 0;
+    private int redHighlight = 0x66;
+    private int greenHighlight = 0x99;
+    private int blueHighlight = 0x99;
     private float atomFontScale = 1.0f;
     private float rotation = 0.0f;
     private String imageName;
-    private String smiles = "";
+    private String smiles = "O=C(O)C(N)CC[S+](C)C[C@H]3O[C@@H](n2cnc1c(ncnc12)N)[C@H](O)[C@@H]3O";
     private String subSearchQuery = "";
-    private String molTitle = "";
-    private TitleLocation titleLocation;
-    private AromaticStyle aromaticStyle;
-    private AtomStereoStyle atomStereoStyle;
-    private BondStereoStyle bondStereoStyle;
-    private ColorStyle colorStyle;
-    private HydrogenStyle hydrogenStyle;
-    private SuperAtomStyle superAtomStyle;
+    private String molTitle = "S-Adenosyl methionine";
+    private TitleLocation titleLocation = TitleLocation.TOP;
+    private AromaticStyle aromaticStyle = AromaticStyle.KEKULE;
+    private AtomStereoStyle atomStereoStyle = AtomStereoStyle.DEFAULT;
+    private BondStereoStyle bondStereoStyle = BondStereoStyle.DEFAULT;
+    private ColorStyle colorStyle = ColorStyle.WHITE_CPK;
+    private HydrogenStyle hydrogenStyle = HydrogenStyle.DEFAULT;
+    private SuperAtomStyle superAtomStyle = SuperAtomStyle.OFF;
     private HighlightStyle highlightStyle = HighlightStyle.COLOR;
 
     public SuperAtomStyle getSuperAtomStyle() {
@@ -195,7 +194,6 @@ public class Settings {
     }
 
     public void setImageName(String name) {
-
         this.imageName = name.replace(' ', '_');
     }
 
