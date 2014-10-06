@@ -21,7 +21,7 @@ public class Settings {
     private String imageName;
     private String smiles = "O=C(O)C(N)CC[S+](C)C[C@H]3O[C@@H](n2cnc1c(ncnc12)N)[C@H](O)[C@@H]3O";
     private String subSearchQuery = "";
-    private String molTitle = "S-Adenosyl methionine";
+    private String molTitle = "S-Adenosyl Methionine";
     private TitleLocation titleLocation = TitleLocation.TOP;
     private AromaticStyle aromaticStyle = AromaticStyle.KEKULE;
     private AtomStereoStyle atomStereoStyle = AtomStereoStyle.DEFAULT;
@@ -30,6 +30,30 @@ public class Settings {
     private HydrogenStyle hydrogenStyle = HydrogenStyle.DEFAULT;
     private SuperAtomStyle superAtomStyle = SuperAtomStyle.OFF;
     private HighlightStyle highlightStyle = HighlightStyle.COLOR;
+    private float flipX = 0.0f;
+    private float flipY = 0.0f;
+
+    public float getFlipX() {
+        return flipX;
+    }
+
+    public void setFlipX(boolean enable) {
+        if (enable)
+            this.flipX = 3.141596f;
+        else
+            this.flipX = 0.0f;
+    }
+
+    public float getFlipY() {
+        return flipY;
+    }
+
+    public void setFlipY(boolean enable) {
+        if (enable)
+            this.flipY = 3.141596f;
+        else
+            this.flipY = 0.0f;
+    }
 
     public SuperAtomStyle getSuperAtomStyle() {
         return superAtomStyle;
@@ -236,6 +260,8 @@ public class Settings {
         ht.put("hydrogenStyle", formatter.format(hydrogenStyle.toString()));
         ht.put("rotation", decimalFormat.format(getRotation()));
         ht.put("highlightStyle", formatter.format(highlightStyle.toString()));
+        ht.put("flipX", decimalFormat.format(getFlipX()));
+        ht.put("flipY", decimalFormat.format(getFlipY()));
 
         return ht;
     }

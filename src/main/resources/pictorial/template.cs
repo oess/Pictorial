@@ -39,9 +39,9 @@ public class ${imageName} {
         </#if>
         OEDepict.OEPrepareDepiction(mol, true, true); // add 2D coordinates to the molecule
 
-        <#if rotation != "0.0"> 
+        <#if rotation != "0.0" || flipX != "0.0" || flipY != "0.0">
         // rotate the molecule
-        double[] angles = {${rotation}, 0.0f, 0.0f};
+        double[] angles = {${rotation}, ${flipX}, ${flipY}};
         OEChem.OEEulerRotate(mol, angles);
 
         </#if>

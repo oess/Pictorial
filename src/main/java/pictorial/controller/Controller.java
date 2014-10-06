@@ -33,8 +33,11 @@ public class Controller implements Initializable {
     private DecimalFormat _df = new DecimalFormat("0.0");
     
     @FXML
-    private TextField _height, _width, _title, _submatch, _input;
-                     
+    private TextField _height, _width, _title, _submatch;
+
+    @FXML
+    private TextArea _input;
+
     @FXML
     private ComboBox _colorStyle, _atomStereo, _bondStereo, 
                      _superAtoms, _hydrogens, _aromaticity, _highlightStyle;
@@ -59,6 +62,9 @@ public class Controller implements Initializable {
 
     @FXML
     private Accordion _accordian;
+
+    @FXML
+    private CheckBox _flipX, _flipY;
 
     @FXML
     private TitledPane _imagePropsPane;
@@ -149,6 +155,9 @@ public class Controller implements Initializable {
             _settings.setImageWidth(width);
             int height = getTextFieldIntValue(_height);
             _settings.setImageHeight(height);
+
+            _settings.setFlipX(_flipX.isSelected());
+            _settings.setFlipY(_flipY.isSelected());
 
             // set the styles for the molecule
             setTitleLocValue();

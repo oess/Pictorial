@@ -66,8 +66,8 @@ class ${imageName}
         </#if>
         OEPrepareDepiction(mol, true, true);
 
-        <#if rotation != "0.0"> 
-        double angles[] = {${rotation}, 0.0f, 0.0f};
+        <#if rotation != "0.0" || flipX != "0.0" || flipY != "0.0">
+        double angles[] = {${rotation}, ${flipX}, ${flipY};
         OEEulerRotate(mol, angles);
 
         </#if>

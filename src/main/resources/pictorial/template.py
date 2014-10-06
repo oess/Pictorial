@@ -27,11 +27,13 @@ def makeImage():
 
     </#if>
     OEPrepareDepiction(mol, True, True) # set the 2d coordinates for the molecule
-    <#if rotation != "0.0"> 
+    <#if rotation != "0.0" || flipX != "0.0" || flipY != "0.0">
 
     # rotate the molecule - must be called after OEPepareDepiction
     angles = OEDoubleArray(3)
     angles[0] = ${rotation}
+    angles[1] = ${flipX}
+    angles[2] = ${flipY}
     OEEulerRotate(mol, angles)
     </#if>
 

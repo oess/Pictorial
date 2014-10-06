@@ -41,9 +41,11 @@ public class Image {
         _mol.SetTitle(s.getMolTitle());
 
         // rotate the molecule and flip the molecule
-        if (s.getRotation() != 0.0f) {
+        if (s.getRotation() != 0.0f || s.getFlipX() != 0.0f || s.getFlipY() != 0.0f) {
             double[] angles = new double[3];
             angles[0] = s.getRotation();
+            angles[1] = s.getFlipX();
+            angles[2] = s.getFlipY();
             oechem.OEEulerRotate(_mol, angles);
         }
 
