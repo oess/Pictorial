@@ -27,6 +27,7 @@ public class Image {
         final String smiles = s.getSmiles();
         boolean success = oechem.OESmilesToMol(_mol, smiles);
         if (!success) {
+           _mol.Clear(); 
             success = oeiupac.OEParseIUPACName(_mol, smiles);
             if (!success) {
                 throw new RuntimeException("Failed to parse " + smiles);
@@ -41,13 +42,7 @@ public class Image {
         _mol.SetTitle(s.getMolTitle());
 
         // rotate the molecule and flip the molecule
-        if (s.getRotation() != 0.0f || s.getFlipX() != 0.0f || s.getFlipY() != 0.0f) {
-            double[] angles = new double[3];
-            angles[0] = s.getRotation();
-            angles[1] = s.getFlipX();
-            angles[2] = s.getFlipY();
-            oechem.OEEulerRotate(_mol, angles);
-        }
+        rotateAndFlip(s);
 
         // create an OEImage to render to
         int width = s.getImageWidth();
@@ -91,6 +86,27 @@ public class Image {
             throw new RuntimeException("OERenderMolecule failed");
         }
         return img;
+    }
+
+    private void rotateAndFlip(Settings s) {
+        float flipX = s.getFlipX();
+        float flipY = s.getFlipY();
+        boolean flip =  flipX != 1.0f || flipY != 1.0f;
+        float rotate = s.getRotation();
+        if (rotate != 0.0f || flip) {
+            float cos = (float) Math.cos(rotate);
+            float sin = (float) Math.sin(rotate);
+            OEFloatArray matrix = new OEFloatArray(8);
+            matrix.setItem(0, flipY * cos);   matrix.setItem(1, flipY * sin);    matrix.setItem(2, 0.0f);
+            matrix.setItem(3, -flipX * sin);  matrix.setItem(4, flipX * cos);    matrix.setItem(5, 0.0f);
+            matrix.setItem(6, 0.0f);          matrix.setItem(7, 0.0f);          matrix.setItem(8, 0.0f);
+
+            oechem.OECenter(_mol);
+            oechem.OERotate(_mol, matrix);
+        }
+
+        if (flip)
+            oechem.OEMDLPerceiveBondStereo(_mol);
     }
 
     public byte[] drawSvgImage(Settings settings) {

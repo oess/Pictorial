@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
 import java.util.Hashtable;
 
 public class Settings {
-    private static final DecimalFormat decimalFormat = new DecimalFormat("0.0");
+    private static final DecimalFormat df1place = new DecimalFormat("0.0");
     private int imageWidth = 600;
     private int imageHeight = 600;
     private int penSize = 2;
@@ -39,9 +39,9 @@ public class Settings {
 
     public void setFlipX(boolean enable) {
         if (enable)
-            this.flipX = 3.141596f;
+            this.flipX = -1.0f;
         else
-            this.flipX = 0.0f;
+            this.flipX = 1.0f;
     }
 
     public float getFlipY() {
@@ -50,9 +50,9 @@ public class Settings {
 
     public void setFlipY(boolean enable) {
         if (enable)
-            this.flipY = 3.141596f;
+            this.flipY = -1.0f;
         else
-            this.flipY = 0.0f;
+            this.flipY = 1.0f;
     }
 
     public SuperAtomStyle getSuperAtomStyle() {
@@ -64,7 +64,7 @@ public class Settings {
     }
 
     public static DecimalFormat getDecimalFormat() {
-        return decimalFormat;
+        return df1place;
     }
 
     public void setAtomFontScale(float atomFontScale) {
@@ -230,7 +230,7 @@ public class Settings {
     }
 
     public float getRotation() {
-        return (3.141596f * rotation) / 180.0f;
+        return (float)Math.toRadians(rotation);
     }
 
     public void setRotation(float rotate) {
@@ -247,7 +247,7 @@ public class Settings {
         ht.put("redHighlight", String.valueOf(redHighlight));
         ht.put("greenHighlight", String.valueOf(greenHighlight));
         ht.put("blueHighlight", String.valueOf(blueHighlight));
-        ht.put("atomFontScale", decimalFormat.format(atomFontScale));
+        ht.put("atomFontScale", df1place.format(atomFontScale));
         ht.put("smiles", smiles);
         ht.put("substructure", subSearchQuery);
         ht.put("molTitle", molTitle);
@@ -258,10 +258,10 @@ public class Settings {
         ht.put("colorStyle", formatter.format(colorStyle.toString()));
         ht.put("superAtomStyle", formatter.format(superAtomStyle.toString()));
         ht.put("hydrogenStyle", formatter.format(hydrogenStyle.toString()));
-        ht.put("rotation", decimalFormat.format(getRotation()));
+        ht.put("rotation", df1place.format(getRotation()));
         ht.put("highlightStyle", formatter.format(highlightStyle.toString()));
-        ht.put("flipX", decimalFormat.format(getFlipX()));
-        ht.put("flipY", decimalFormat.format(getFlipY()));
+        ht.put("flipX", df1place.format(getFlipX()));
+        ht.put("flipY", df1place.format(getFlipY()));
 
         return ht;
     }

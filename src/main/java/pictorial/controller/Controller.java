@@ -123,6 +123,7 @@ public class Controller implements Initializable {
         _widgets.add(_titleLocTop);    _widgets.add(_gencpp);
         _widgets.add(_gencs);          _widgets.add(_genpy);
         _widgets.add(_rotation);       _widgets.add(_highlightStyle);
+        _widgets.add(_flipX);          _widgets.add(_flipY);
 
         // show the image properties
         _accordian.setExpandedPane(_imagePropsPane);
