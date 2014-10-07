@@ -2,9 +2,22 @@ from __future__ import print_function
 from openeye.oechem import *
 from openeye.oedepict import *
 from openeye.oeiupac import *
+import math
 
 <#assign titleLen = molTitle?length>
 <#assign queryLen = substructure?length>
+<#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+
+def rotateAndFlip(OEGraphMol mol):
+    cosine = math.cos(${rotation});
+    sine = math.sin(${rotation});
+    matrix = OEDoubleArray([ ${flipY} * cosine, ${flipY} * sine,   0.0,
+                             ${flipX} * -sine,  ${flipX} * cosine, 0.0,
+                             0.0,               0.0,            0.0 ]
+
+    OECenter(mol);  # this must be called prior to OERotate
+    OERotate(mol, matrix);
+</#if>
 
 def makeImage():
     <#if titleLen != 0>
@@ -27,16 +40,10 @@ def makeImage():
 
     </#if>
     OEPrepareDepiction(mol, True, True) # set the 2d coordinates for the molecule
-    <#if rotation != "0.0" || flipX != "0.0" || flipY != "0.0">
+    <#if rotation != "0.0" || flipX != "0.0000" || flipY != "0.0000">
+    rotateAndFlip(mol)
 
-    # rotate the molecule - must be called after OEPepareDepiction
-    angles = OEDoubleArray(3)
-    angles[0] = ${rotation}
-    angles[1] = ${flipX}
-    angles[2] = ${flipY}
-    OEEulerRotate(mol, angles)
     </#if>
-
     displayOpts = OE2DMolDisplayOptions(${imageWidth}, ${imageHeight}, OEScale_AutoScale)
     displayOpts.SetDefaultBondPen(bondPen)
     displayOpts.SetAromaticStyle(${aromaticStyle})
