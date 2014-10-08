@@ -8,421 +8,348 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="689.0" minWidth="1024.0" prefHeight="703.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pictorial.controller.Controller">
-  <children><BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-<right>
-            <Accordion fx:id="_accordian" BorderPane.alignment="CENTER" SplitPane.resizableWithParent="false">
-              <panes>
-                <TitledPane fx:id="_imagePropsPane" animated="false" text="Image Properties">
-                  <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="627.0" prefViewportWidth="298.0">
-                           <content>
-                          <AnchorPane maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefWidth="200.0">
-                                 <children>
-                                    <GridPane hgap="5.0" layoutY="9.0" vgap="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="ALWAYS" percentWidth="38.0" />
-                                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" percentWidth="62.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                 <Label contentDisplay="CENTER" prefHeight="21.999908447265625" text="Title:" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                 </Label>
-                                 <Label contentDisplay="CENTER" prefHeight="21.999908447265625" text="Title Location:" GridPane.rowIndex="1">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label fx:id="_titleSizeLable" contentDisplay="CENTER" text="Title Font Size: 40" GridPane.rowIndex="2">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label id="_heightLabel" contentDisplay="CENTER" text="Height" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                 </Label>
-                                 <Label id="_wdithLabel" contentDisplay="CENTER" text="Width" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.vgrow="NEVER">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                 </Label>
-                                 <Label fx:id="_penLabel" contentDisplay="CENTER" text="Pen Size: 2" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.margin="$x2" GridPane.rowIndex="5" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label fx:id="_fontLabel" contentDisplay="CENTER" text="Atom Font Scale: 1.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.margin="$x2" GridPane.rowIndex="6" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label contentDisplay="CENTER" text="Color Style:" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.margin="$x2" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <TextField fx:id="_title" onKeyReleased="#handleTyping" prefWidth="200.0" GridPane.columnIndex="1">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </TextField>
-                                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                   <children>
-                                     <RadioButton fx:id="_titleLocTop" mnemonicParsing="false" onAction="#update" selected="true" text="Top" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                                       <toggleGroup>
-                                         <ToggleGroup fx:id="x4" />
-                                       </toggleGroup>
-                                     </RadioButton>
-                                     <RadioButton fx:id="_titleLocBottom" mnemonicParsing="false" onAction="#update" text="Bottom" toggleGroup="$x4" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                   </children>
-                                   <columnConstraints>
-                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                   </columnConstraints>
-                                   <rowConstraints>
-                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                   </rowConstraints>
-                                 </GridPane>
-                                 <Slider fx:id="_titleSize" blockIncrement="1.0" max="1000.0" min="1.0" value="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </Slider>
-                                 <TextField id="_title" fx:id="_height" onKeyReleased="#handleTyping" prefWidth="167.0" text="600" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </TextField>
-                                 <TextField id="_title" fx:id="_width" onKeyReleased="#handleTyping" prefWidth="200.0" text="600" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </TextField>
-                                 <Slider fx:id="_penSize" blockIncrement="1.0" min="1.0" value="2.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </Slider>
-                                 <Slider fx:id="_fontSize" blockIncrement="0.1" max="3.0" min="0.5" minorTickCount="1" value="1.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </Slider>
-                                 <ComboBox fx:id="_colorStyle" onAction="#update" prefWidth="218.0" value="White CPK" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
-                                   <items>
-                                     <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="White CPK" />
-                                       <String fx:value="White Monochrome" />
-                                       <String fx:value="Black CPK" />
-                                       <String fx:value="Black Monochrome" />
-                                     </FXCollections>
-                                   </items>
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </ComboBox>
-                              <Button fx:id="_save" mnemonicParsing="false" onAction="#saveImage" onMouseClicked="#saveImage" text="Save Image" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
-                  </content>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                </TitledPane>
-                <TitledPane animated="false" expanded="false" text="Molecule Properties">
-                  <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="613.0" prefViewportWidth="298.0">
-                           <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <GridPane layoutY="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="143.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="210.0" prefWidth="218.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="ALWAYS" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="21.999908447265625" text="Substructure Match:" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
-                                   <GridPane.margin>
-                                     <Insets fx:id="x2" />
-                                   </GridPane.margin>
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                 </Label>
-                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="21.999908447265625" text="Match Color:" GridPane.rowIndex="1">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Atom Stereo:" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Bond Stereo:" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Super Atoms:" GridPane.hgrow="NEVER" GridPane.rowIndex="5" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Hydrogens:" GridPane.hgrow="NEVER" GridPane.rowIndex="6" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Aromaticity:" GridPane.hgrow="NEVER" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                 <TextField fx:id="_submatch" onKeyReleased="#handleTyping" prefWidth="200.0" GridPane.columnIndex="1">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </TextField>
-                                 <ColorPicker fx:id="_color" onAction="#update" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </ColorPicker>
-                                 <ComboBox id="_atomSterio" fx:id="_atomStereo" onAction="#update" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                   <items>
-                                     <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="Default" />
-                                       <String fx:value="All" />
-                                       <String fx:value="CIP" />
-                                       <String fx:value="Hidden" />
-                                     </FXCollections>
-                                   </items>
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </ComboBox>
-                                 <ComboBox id="_bondSterio" fx:id="_bondStereo" onAction="#update" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                   <items>
-                                     <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="Default" />
-                                       <String fx:value="All" />
-                                       <String fx:value="CIP" />
-                                       <String fx:value="Hidden" />
-                                     </FXCollections>
-                                   </items>
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </ComboBox>
-                                 <ComboBox fx:id="_superAtoms" onAction="#update" prefWidth="218.0" value="None" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                   <items>
-                                     <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="None" />
-                                       <String fx:value="Carbon" />
-                                       <String fx:value="Oxygen" />
-                                       <String fx:value="Nitrogen" />
-                                       <String fx:value="Oxygen &amp; Nitrogen" />
-                                       <String fx:value="Sulphur" />
-                                       <String fx:value="Phosphorus" />
-                                       <String fx:value="Halides" />
-                                       <String fx:value="Ether" />
-                                       <String fx:value="All" />
-                                     </FXCollections>
-                                   </items>
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </ComboBox>
-                                 <ComboBox fx:id="_hydrogens" onAction="#update" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                   <items>
-                                     <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="Default" />
-                                       <String fx:value="Explicit: All" />
-                                       <String fx:value="Excplicit: Hetero" />
-                                       <String fx:value="Explicit: Terminal" />
-                                       <String fx:value="Implicit: All" />
-                                       <String fx:value="Implicit: Hetero" />
-                                       <String fx:value="Implicit: Terminal" />
-                                       <String fx:value="Hidden" />
-                                     </FXCollections>
-                                   </items>
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </ComboBox>
-                                 <ComboBox fx:id="_aromaticity" onAction="#update" prefWidth="218.0" value="Kekule" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                   <items>
-                                     <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="Kekule" />
-                                       <String fx:value="Circle" />
-                                       <String fx:value="Dash" />
-                                     </FXCollections>
-                                   </items>
-                                   <GridPane.margin>
-                                     <Insets right="5.0" fx:id="x2" />
-                                   </GridPane.margin>
-                                 </ComboBox>
-                                          <Label fx:id="_rotationLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Rotation: 0°" GridPane.rowIndex="8">
-<padding>
-<Insets left="5.0" />
-</padding>
-</Label>
-                                          <Slider fx:id="_rotation" blockIncrement="0.1" max="359.9" min="0.0" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                          <Label text="Highlight Style:" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <ComboBox fx:id="_highlightStyle" onAction="#update" prefWidth="218.0" value="Color" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                              <items>
-                                                  <FXCollections fx:factory="observableArrayList">
-                                                      <String fx:value="Color" />
-                                                      <String fx:value="Stick" />
-                                                      <String fx:value="Ball And Stick" />
-                                                      <String fx:value="Cogwheel" />
-                                                  </FXCollections>
-                                              </items>
-                                             <GridPane.margin>
-                                                <Insets right="5.0" />
-                                             </GridPane.margin>
-                                          </ComboBox>
-                                          <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="9" GridPane.vgrow="NEVER">
-                                             <children>
-                                                <CheckBox fx:id="_flipX" layoutX="58.0" layoutY="447.0" mnemonicParsing="false" onAction="#update" text="Flip X">
-                                                   <HBox.margin>
-                                                      <Insets />
-                                                   </HBox.margin>
-                                                </CheckBox>
-                                                <CheckBox fx:id="_flipY" layoutX="53.0" layoutY="406.0" mnemonicParsing="false" onAction="#update" text="Flip Y">
-                                                   <HBox.margin>
-                                                      <Insets left="30.0" />
-                                                   </HBox.margin>
-                                                </CheckBox>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
-                  </content>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                </TitledPane>
-                <TitledPane animated="false" expanded="false" text="Code Generation">
-                  <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="608.0" prefViewportWidth="361.0">
-                           <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0">
-                                 <children>
-                                    <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Label text="Generate Python:">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <Label text="Generate Cpp:" GridPane.rowIndex="1">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <Label text="Generate Java:" GridPane.rowIndex="2">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <Button fx:id="_genpy" mnemonicParsing="false" onAction="#generatePython" text="Generate" GridPane.columnIndex="1" />
-                                          <Button fx:id="_gencpp" mnemonicParsing="false" onAction="#generateCpp" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Button fx:id="_genjava" mnemonicParsing="false" onAction="#generateJava" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Label text="Generate C#:" GridPane.rowIndex="3">
-                                             <padding>
-                                                <Insets left="5.0" />
-                                             </padding>
-                                          </Label>
-                                          <Button fx:id="_gencs" mnemonicParsing="false" onAction="#generateCSharp" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
-                  </content>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                </TitledPane>
-              </panes>
-            </Accordion>
-</right>
-<center><AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-<children>
-<VBox prefHeight="703.0" prefWidth="632.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER">
-<children>
-                        <TextArea fx:id="_input" onKeyReleased="#handleTyping" prefHeight="97.0" prefWidth="661.0" promptText="Enter SMILES">
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </TextArea><WebView fx:id="_webView" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" />
-                           </VBox.margin></WebView>
-</children>
-</VBox>
-</children></AnchorPane>
-</center></BorderPane>
-  </children>
-</AnchorPane>
+<BorderPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pictorial.controller.Controller">
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="_input" maxHeight="75.0" minHeight="75.0" onKeyReleased="#handleTyping" promptText="Enter SMILES, IUAPAC Name, or Reaction" wrapText="true" VBox.vgrow="SOMETIMES">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="3.0" top="3.0" />
+               </VBox.margin>
+            </Separator>
+            <WebView fx:id="_webView" minHeight="-1.0" minWidth="-1.0" prefHeight="609.0" prefWidth="287.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </WebView>
+         </children>
+      </VBox>
+   </center>
+   <right>
+      <Accordion fx:id="_accordian" maxWidth="360.0" minWidth="360.0" BorderPane.alignment="CENTER">
+         <panes>
+            <TitledPane fx:id="_imagePropsPane" animated="false" text="Image Properties">
+               <content>
+                  <GridPane hgap="5.0" vgap="5.0">
+                     <children>
+                        <Label contentDisplay="CENTER" text="Title:" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label contentDisplay="CENTER" text="Title Location:" GridPane.rowIndex="1" />
+                        <Label fx:id="_titleSizeLable" contentDisplay="CENTER" text="Title Font Size: 40" GridPane.rowIndex="2" />
+                        <Label id="_heightLabel" contentDisplay="CENTER" text="Height" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label id="_wdithLabel" contentDisplay="CENTER" text="Width" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.vgrow="NEVER">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="_penLabel" contentDisplay="CENTER" text="Pen Size: 2" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.margin="$x2" GridPane.rowIndex="5" GridPane.vgrow="NEVER" />
+                        <Label fx:id="_fontLabel" contentDisplay="CENTER" text="Atom Font Scale: 1.0" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.margin="$x2" GridPane.rowIndex="6" GridPane.vgrow="NEVER" />
+                        <Label contentDisplay="CENTER" text="Color Style:" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.margin="$x2" GridPane.rowIndex="7" GridPane.vgrow="NEVER" />
+                        <TextField fx:id="_title" onKeyReleased="#handleTyping" prefWidth="200.0" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </TextField>
+                        <Slider fx:id="_titleSize" blockIncrement="1.0" max="1000.0" min="1.0" value="40.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </Slider>
+                        <TextField id="_title" fx:id="_height" onKeyReleased="#handleTyping" prefWidth="167.0" text="700" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField id="_title" fx:id="_width" onKeyReleased="#handleTyping" prefWidth="200.0" text="700" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </TextField>
+                        <Slider fx:id="_penSize" blockIncrement="1.0" min="1.0" value="2.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </Slider>
+                        <Slider fx:id="_fontSize" blockIncrement="0.1" max="3.0" min="0.5" minorTickCount="1" value="1.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </Slider>
+                        <ComboBox fx:id="_colorStyle" onAction="#update" prefWidth="218.0" value="White CPK" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="7">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="White CPK" />
+                                 <String fx:value="White Monochrome" />
+                                 <String fx:value="Black CPK" />
+                                 <String fx:value="Black Monochrome" />
+                              </FXCollections>
+                           </items>
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <Button fx:id="_save" mnemonicParsing="false" onAction="#saveImage" onMouseClicked="#saveImage" text="Save Image" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <RadioButton fx:id="_titleLocTop" mnemonicParsing="false" onAction="#update" selected="true" text="Top">
+                                 <padding>
+                                    <Insets right="30.0" />
+                                 </padding>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="x4" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="_titleLocBottom" mnemonicParsing="false" onAction="#update" text="Bottom" toggleGroup="$x4" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" percentWidth="40.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" percentWidth="62.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TitledPane>
+            <TitledPane animated="false" expanded="false" text="Molecule Properties">
+               <content>
+                  <GridPane prefHeight="803.0" prefWidth="370.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="21.999908447265625" text="Substructure Match:" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                           <GridPane.margin>
+                              <Insets fx:id="x2" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="21.999908447265625" text="Match Color:" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Atom Stereo:" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Bond Stereo:" GridPane.hgrow="NEVER" GridPane.rowIndex="4" GridPane.vgrow="NEVER">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Super Atoms:" GridPane.hgrow="NEVER" GridPane.rowIndex="5" GridPane.vgrow="NEVER">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Hydrogens:" GridPane.hgrow="NEVER" GridPane.rowIndex="6" GridPane.vgrow="NEVER">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Aromaticity:" GridPane.hgrow="NEVER" GridPane.rowIndex="7" GridPane.vgrow="NEVER">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <TextField fx:id="_submatch" onKeyReleased="#handleTyping" prefWidth="200.0" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </TextField>
+                        <ColorPicker fx:id="_color" onAction="#update" prefWidth="218.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </ColorPicker>
+                        <ComboBox id="_atomSterio" fx:id="_atomStereo" onAction="#update" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Default" />
+                                 <String fx:value="All" />
+                                 <String fx:value="CIP" />
+                                 <String fx:value="Hidden" />
+                              </FXCollections>
+                           </items>
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <ComboBox id="_bondSterio" fx:id="_bondStereo" onAction="#update" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Default" />
+                                 <String fx:value="All" />
+                                 <String fx:value="CIP" />
+                                 <String fx:value="Hidden" />
+                              </FXCollections>
+                           </items>
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="_superAtoms" onAction="#update" prefWidth="218.0" value="None" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="None" />
+                                 <String fx:value="Carbon" />
+                                 <String fx:value="Oxygen" />
+                                 <String fx:value="Nitrogen" />
+                                 <String fx:value="Oxygen &amp; Nitrogen" />
+                                 <String fx:value="Sulphur" />
+                                 <String fx:value="Phosphorus" />
+                                 <String fx:value="Halides" />
+                                 <String fx:value="Ether" />
+                                 <String fx:value="All" />
+                              </FXCollections>
+                           </items>
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="_hydrogens" onAction="#update" prefWidth="218.0" value="Default" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Default" />
+                                 <String fx:value="Explicit: All" />
+                                 <String fx:value="Excplicit: Hetero" />
+                                 <String fx:value="Explicit: Terminal" />
+                                 <String fx:value="Implicit: All" />
+                                 <String fx:value="Implicit: Hetero" />
+                                 <String fx:value="Implicit: Terminal" />
+                                 <String fx:value="Hidden" />
+                              </FXCollections>
+                           </items>
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <ComboBox fx:id="_aromaticity" onAction="#update" prefWidth="218.0" value="Kekule" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Kekule" />
+                                 <String fx:value="Circle" />
+                                 <String fx:value="Dash" />
+                              </FXCollections>
+                           </items>
+                           <GridPane.margin>
+                              <Insets right="5.0" fx:id="x2" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <Label fx:id="_rotationLabel" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Rotation: 0°" GridPane.rowIndex="8">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <Slider fx:id="_rotation" blockIncrement="0.1" max="359.9" min="0.0" value="0.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label text="Highlight Style:" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <ComboBox fx:id="_highlightStyle" onAction="#update" prefWidth="218.0" value="Color" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="Color" />
+                                 <String fx:value="Stick" />
+                                 <String fx:value="Ball And Stick" />
+                                 <String fx:value="Cogwheel" />
+                              </FXCollections>
+                           </items>
+                           <GridPane.margin>
+                              <Insets right="5.0" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="9" GridPane.vgrow="NEVER">
+                           <children>
+                              <CheckBox fx:id="_flipX" layoutX="58.0" layoutY="447.0" mnemonicParsing="false" onAction="#update" text="Flip X">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="_flipY" layoutX="53.0" layoutY="406.0" mnemonicParsing="false" onAction="#update" text="Flip Y">
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </CheckBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" percentWidth="40.0" />
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="236.0" minWidth="210.0" prefWidth="218.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TitledPane>
+            <TitledPane animated="false" expanded="false" maxWidth="360.0" minWidth="360.0" text="Code Generation">
+               <content>
+                  <GridPane maxWidth="360.0" prefHeight="432.0" prefWidth="204.0">
+                     <children>
+                        <Label text="Generate Python:" />
+                        <Label text="Generate Cpp:" GridPane.rowIndex="1" />
+                        <Label text="Generate Java:" GridPane.rowIndex="2" />
+                        <Button fx:id="_genpy" mnemonicParsing="false" onAction="#generatePython" text="Generate" GridPane.columnIndex="1" />
+                        <Button fx:id="_gencpp" mnemonicParsing="false" onAction="#generateCpp" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="_genjava" mnemonicParsing="false" onAction="#generateJava" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Generate C#:" GridPane.rowIndex="3" />
+                        <Button fx:id="_gencs" mnemonicParsing="false" onAction="#generateCSharp" text="Generate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="40.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                        <RowConstraints minHeight="35.0" prefHeight="35.0" vgrow="NEVER" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TitledPane>
+         </panes>
+      </Accordion>
+   </right>
+</BorderPane>
