@@ -2,9 +2,7 @@
  * Copyright 2013 OpenEye Scientific Software, Inc.
  *****************************************************************************/
 package pictorial.controller;
-
 import javafx.stage.Window;
-import javafx.scene.control.Dialog;
 import org.controlsfx.glyphfont.Glyph;
 import pictorial.model.*;
 import javafx.event.ActionEvent;
@@ -53,7 +51,7 @@ public class Controller implements Initializable {
     private WebView _webView;
     
     @FXML
-    private Button _save, _gencpp, _gencs, _genpy, _genjava;
+    private Button _save;
     
     @FXML
     private ColorPicker _color;
@@ -66,6 +64,15 @@ public class Controller implements Initializable {
 
     @FXML
     private CheckBox _flipX, _flipY;
+
+    @FXML
+    private Tab _codeGenTab;
+
+    @FXML
+    private TextArea _codeArea;
+
+    @FXML
+    private ComboBox<String> _selectLanguage;
 
     @FXML
     private TitledPane _imagePropsPane;
@@ -111,6 +118,9 @@ public class Controller implements Initializable {
             me.updateImage();
         });
 
+        _selectLanguage.getItems().addAll("Python", "Java", "C++", "C#");
+        _selectLanguage.setValue("Python");
+
         // maintain a set of widgets to disable in case of error
         _widgets.add(_height);         _widgets.add(_width);
         _widgets.add(_title);          _widgets.add(_submatch);
@@ -118,16 +128,15 @@ public class Controller implements Initializable {
         _widgets.add(_color);          _widgets.add(_colorStyle);
         _widgets.add(_atomStereo);     _widgets.add(_bondStereo);
         _widgets.add(_superAtoms);     _widgets.add(_hydrogens);
-        _widgets.add(_aromaticity);    _widgets.add(_genjava);
-        _widgets.add(_titleLocBottom); _widgets.add(_penSize);
-        _widgets.add(_fontSize);       _widgets.add(_save);
-        _widgets.add(_titleLocTop);    _widgets.add(_gencpp);
-        _widgets.add(_gencs);          _widgets.add(_genpy);
+        _widgets.add(_aromaticity);    _widgets.add(_penSize);
+        _widgets.add(_titleLocBottom); _widgets.add(_save);
+        _widgets.add(_fontSize);       _widgets.add(_titleLocTop);
         _widgets.add(_rotation);       _widgets.add(_highlightStyle);
         _widgets.add(_flipX);          _widgets.add(_flipY);
 
         // show the image properties
         _accordian.setExpandedPane(_imagePropsPane);
+        updateCodeArea();
     }
 
     public void updateImage() {
@@ -231,11 +240,13 @@ public class Controller implements Initializable {
         _titleSize.setDisable(haveTitle);
         
         updateImage();
+        updateCodeArea();
     }
     
     @FXML
     public void update(ActionEvent event) {
         updateImage();
+        updateCodeArea();
     }
     
     @FXML
@@ -281,6 +292,7 @@ public class Controller implements Initializable {
                 n.disableProperty().set(true);
             }
         }
+        _codeGenTab.setDisable(true);
     }
     
     private void setSuccessStyle(Node widget) {
@@ -296,6 +308,7 @@ public class Controller implements Initializable {
                 n.disableProperty().set(false);
             }
         }
+        _codeGenTab.setDisable(false);
     }
  
     private void setAromaticValue() {
@@ -539,31 +552,42 @@ private void generate(String language, String extension) {
     }
 }
 
-    @FXML
-    public void generateCpp(ActionEvent event) {
-        generate("C++", ".cpp");
-    }
-
-    @FXML
-    public void generateJava(ActionEvent event) {
-        generate("Java", ".java");
-    }
-
-    @FXML
-    public void generateCSharp(ActionEvent event) {
-        generate("C#", ".cs");
-    }
-
-    @FXML
-    public void generatePython(ActionEvent event) {
-        generate("Python", ".py");
-    }
-
     private static String stackTraceToString(StackTraceElement[] stack) {
         StringBuffer buffer = new StringBuffer();
         for (StackTraceElement frame: stack)
             buffer.append(frame.toString() + "\n");
         return buffer.toString();
+    }
+
+    public void updateCodeArea() {
+
+        try {
+            String content = "bad wrong";
+            switch (_selectLanguage.getValue()) {
+                case "Python":
+                    content = CodeGen.generatePython(_settings);
+                    System.out.println(content);
+                    break;
+                case "C++":
+                    content = CodeGen.generateCpp(_settings);
+                    break;
+                case "Java":
+                    content = CodeGen.generateJava(_settings);
+                    break;
+                case "C#":
+                    content = CodeGen.generateCSharp(_settings);
+                    break;
+            }
+            _codeArea.setText(content);
+        } catch(Exception e) {
+            System.out.println("things went wrong: " + e.getMessage() + "\n" + stackTraceToString(e.getStackTrace()));
+            // TODO: nice dialog explaining things went wrong
+        }
+    }
+
+    @FXML
+    public void updateCodeArea(ActionEvent event) {
+        updateCodeArea();
     }
 
 }
