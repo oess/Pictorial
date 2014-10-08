@@ -13,7 +13,7 @@ def rotateAndFlip(OEGraphMol mol):
     sine = math.sin(${rotation});
     matrix = OEDoubleArray([ ${flipY} * cosine, ${flipY} * sine,   0.0,
                              ${flipX} * -sine,  ${flipX} * cosine, 0.0,
-                             0.0,               0.0,            0.0 ]
+                                 0.0,               0.0,           0.0 ]
 
     OECenter(mol);  # this must be called prior to OERotate
     OERotate(mol, matrix);
@@ -40,7 +40,7 @@ def makeImage():
 
     </#if>
     OEPrepareDepiction(mol, True, True) # set the 2d coordinates for the molecule
-    <#if rotation != "0.0" || flipX != "0.0000" || flipY != "0.0000">
+    <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
     rotateAndFlip(mol)
 
     </#if>

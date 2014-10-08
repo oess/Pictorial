@@ -101,8 +101,8 @@ public class ${imageName} {
         if (flip)
             oechem.OEMDLPerceiveBondStereo(mol);
     }
+</#if>
 
-</if>
     public static void main(String[] args) {
         ${imageName} obj = new ${imageName}();
         obj.makeImage();
