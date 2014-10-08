@@ -31,7 +31,8 @@ public class Controller implements Initializable {
     private Image _image = new Image();
     private File _savePath = new File(System.getProperty("user.home"));
     private DecimalFormat _df = new DecimalFormat("0.0");
-    
+    private OEGraphMol _mol = new OEGraphMol();
+
     @FXML
     private TextField _height, _width, _title, _submatch;
 
@@ -139,10 +140,9 @@ public class Controller implements Initializable {
             }
             
             // parse the smiles string
-            OEGraphMol mol = new OEGraphMol();
-            boolean success = oechem.OESmilesToMol(mol, smiles);
+            boolean success = oechem.OESmilesToMol(_mol, smiles);
             if (!success) {
-                success = oeiupac.OEParseIUPACName(mol, smiles);
+                success = oeiupac.OEParseIUPACName(_mol, smiles);
                 if (!success) {
                     setErrorStyle(_input);
                     return;
