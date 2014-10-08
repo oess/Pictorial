@@ -34,6 +34,7 @@ public class Image {
             }
         }
 
+        // assign 2d coordinates
         success = oedepict.OEPrepareDepiction(_mol, true, true);
         if (!success) {
             throw new RuntimeException("PrepareDepiction failed");
@@ -41,7 +42,6 @@ public class Image {
 
         _mol.SetTitle(s.getMolTitle());
 
-        // rotate the molecule and flip the molecule
         rotateAndFlip(s);
 
         // create an OEImage to render to
