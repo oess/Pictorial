@@ -527,30 +527,42 @@ private File chooseFile(String language, String extension) {
     _settings.setImageName(tmpName);
     return tmp;
 }
-private void generate(String language, String extension) {
-    File f = chooseFile(language, extension);
-    try {
-        if (f != null) {
-            String code = CodeGen.generateCpp(_settings);
-            Writer fw = new FileWriter(f);
-            fw.write(code);
-            fw.close();
-        }
-    } catch(Exception e) {
 
-        Window w = _webView.getScene().getWindow();
-        String trace = stackTraceToString(e.getStackTrace());
-// TODO: figure out how to make nice dialogs!
-//        final Dialog<Void> ed = new Dialog<>();
-//        ed.setContentText("An error occurred while generating example code:\n" + e.getMessage());
-//        ed.setGraphic(_warningGlyf);
-//        ed.getDialogPane().autosize();
-//        final Button close = new Button("Close");
-//        close.onActionProperty().setValue(a -> {ed.close();});
-//        ed.getDialogPane().getChildren().add(close);
-//        ed.showAndWait();
+    @FXML
+    public void saveCode(ActionEvent event) {
+        String language = _selectLanguage.getValue();
+        String extension = ".py";
+        if (language == "C++") {
+            extension = ".cpp";
+        } else if (language == "Java") {
+            extension = ".java";
+        } else if (language == "C#") {
+            extension = ".cs";
+        }
+
+        File f = chooseFile(language, extension);
+        try {
+            if (f != null) {
+                String code = generateCode();
+                Writer fw = new FileWriter(f);
+                fw.write(code);
+                fw.close();
+            }
+        } catch(Exception e) {
+
+            Window w = _webView.getScene().getWindow();
+            String trace = stackTraceToString(e.getStackTrace());
+    // TODO: figure out how to make nice dialogs!
+    //        final Dialog<Void> ed = new Dialog<>();
+    //        ed.setContentText("An error occurred while generating example code:\n" + e.getMessage());
+    //        ed.setGraphic(_warningGlyf);
+    //        ed.getDialogPane().autosize();
+    //        final Button close = new Button("Close");
+    //        close.onActionProperty().setValue(a -> {ed.close();});
+    //        ed.getDialogPane().getChildren().add(close);
+    //        ed.showAndWait();
+        }
     }
-}
 
     private static String stackTraceToString(StackTraceElement[] stack) {
         StringBuffer buffer = new StringBuffer();
@@ -559,10 +571,9 @@ private void generate(String language, String extension) {
         return buffer.toString();
     }
 
-    public void updateCodeArea() {
-
+    public String generateCode() {
         try {
-            String content = "bad wrong";
+            String content = "";
             switch (_selectLanguage.getValue()) {
                 case "Python":
                     content = CodeGen.generatePython(_settings);
@@ -577,11 +588,16 @@ private void generate(String language, String extension) {
                     content = CodeGen.generateCSharp(_settings);
                     break;
             }
-            _codeArea.setText(content);
+            return content;
         } catch(Exception e) {
-            System.out.println("things went wrong: " + e.getMessage() + "\n" + stackTraceToString(e.getStackTrace()));
+            System.out.println("Caught exception: " + e.getMessage() + "\n" + stackTraceToString(e.getStackTrace()));
             // TODO: nice dialog explaining things went wrong
         }
+        return null;
+    }
+
+    public void updateCodeArea() {
+        _codeArea.setText(generateCode());
     }
 
     @FXML
