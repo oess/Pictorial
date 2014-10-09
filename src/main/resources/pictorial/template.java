@@ -1,12 +1,10 @@
 import openeye.oechem.*;
 import openeye.oedepict.*;
 import openeye.oeiupac.*;
-
 <#assign titleLen = molTitle?length>
 <#assign queryLen = substructure?length>
 
 public class ${imageName} {
-
     <#if titleLen != 0>
     private String molTitle = "${molTitle}";
     </#if>
@@ -20,7 +18,6 @@ public class ${imageName} {
     private int imageHeight= ${imageHeight};
 
     public void makeImage() {
-
         OEGraphMol mol = new OEGraphMol();
 
         // parse the smiles string
@@ -37,10 +34,10 @@ public class ${imageName} {
         <#if titleLen != 0>
         mol.SetTitle(molTitle);
         </#if>
-        oedepict.OEPrepareDepiction(mol, true, true);
+        oedepict.OEPrepareDepiction(mol, true, true);  // assigns 2D coordinates to the atoms
 
         <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
-            rotateAndFlip(mol);
+        rotateAndFlip(mol);
         </#if>
 
         OE2DMolDisplayOptions displayOpts = new OE2DMolDisplayOptions(imageWidth, imageHeight, OEScale.AutoScale);
@@ -80,33 +77,29 @@ public class ${imageName} {
         System.out.println("Depiction saved to ${imageName}.png");
     }
 
-<#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+    <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
     private void rotateAndFlip(Settings s) {
         float flipX = ${flipX};
         float flipY = ${flipY};
         float rotate = ${rotation};
-        boolean flip =  flipX != 1.0f || flipY != 1.0f;
-        if (rotate != 0.0f || flip) {
-            float cos = (float) Math.cos(rotate);
-            float sin = (float) Math.sin(rotate);
-            OEFloatArray angles = new OEFloatArray(8);
-            angles.setItem(0, flipY *  cos);  angles.setItem(1, flipY * sin);   angles.setItem(2, 0.0f);
-            angles.setItem(3, flipX * -sin);  angles.setItem(4, flipX * cos);   angles.setItem(5, 0.0f);
-            angles.setItem(6,0.0f);           angles.setItem(7, 0.0f);          angles.setItem(8, 0.0f);
 
-            oechem.OECenter(mol);  // this must be called before
-            oechem.OERotate(mol, matrix);
-        }
+        float cos = (float) Math.cos(rotate);
+        float sin = (float) Math.sin(rotate);
+        OEFloatArray angles = new OEFloatArray(8);
+        angles.setItem(0, flipY *  cos);  angles.setItem(1, flipY * sin);   angles.setItem(2, 0.0f);
+        angles.setItem(3, flipX * -sin);  angles.setItem(4, flipX * cos);   angles.setItem(5, 0.0f);
+        angles.setItem(6, 0.0f);          angles.setItem(7, 0.0f);          angles.setItem(8, 0.0f);
 
-        if (flip)
+        oechem.OECenter(mol);  // this must be called before OERotate
+        oechem.OERotate(mol, matrix);
+
+        if (flipX == -1.0f || flipY == -1.0f)
             oechem.OEMDLPerceiveBondStereo(mol);
     }
-</#if>
+    </#if>
 
     public static void main(String[] args) {
         ${imageName} obj = new ${imageName}();
         obj.makeImage();
     }
-
-
 } 

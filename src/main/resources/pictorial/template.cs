@@ -41,6 +41,7 @@ public class ${imageName} {
 
         <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
         rotateAndFlip(mol);
+
         </#if>
         OE2DMolDisplayOptions displayOpts = new OE2DMolDisplayOptions(imageWidth, imageHeight, OEScale.AutoScale);
         <#if titleLen != 0>
@@ -80,6 +81,27 @@ public class ${imageName} {
         OEDepict.OEWriteImage("${imageName}.png", image);
         Console.WriteLine("Depiction saved to ${imageName}.png");
     }
+    <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+
+    private void rotateAndFlip(Settings s) {
+        float flipX = ${flipX};
+        float flipY = ${flipY};
+        float rotate = ${rotation};
+
+        float cos = (float) Math.cos(rotate);
+        float sin = (float) Math.sin(rotate);
+        OEFloatArray angles = new OEFloatArray(8);
+        angles.setItem(0, flipY *  cos);  angles.setItem(1, flipY * sin);   angles.setItem(2, 0.0f);
+        angles.setItem(3, flipX * -sin);  angles.setItem(4, flipX * cos);   angles.setItem(5, 0.0f);
+        angles.setItem(6,0.0f);           angles.setItem(7, 0.0f);          angles.setItem(8, 0.0f);
+
+        oechem.OECenter(mol);  // this must be called before OERotate
+        oechem.OERotate(mol, matrix);
+
+        if ( flipX == -1.0 || flipY == -1.0)
+            oechem.OEMDLPerceiveBondStereo(mol);
+    }
+    </#if>
 
     public static int Main(string[] args) {
         ${imageName} obj = new ${imageName}();

@@ -50,14 +50,20 @@ class ${imageName}
 
     void rotateAndFlip(OEGraphMol &mol)
     {
+        float flipX = ${flipX};
+        float flipY = ${flipY};
+        float rotate = ${rotation};
         float cosine = (float) cos(${rotation});
         float sine = (float) sin(${rotation});
-        float matrix[9] = { ${flipY} * cosine, ${flipY} * sine,   0.0,
-                           -${flipX} * sine,   ${flipX} * cosine, 0.0,
-                             0.0,              0.0,               0.0 }
+        float matrix[9] = { flipY * cosine, flip * sine,    0.0,
+                            flipX * -sine,  flipX * cosine, 0.0,
+                             0.0,           0.0,            0.0 };
 
         OECenter(mol);  // this must be called prior to OERotate
         OERotate(mol, matrix);
+
+        if (flipX == -1.0f || flipY == -1.0f)
+            OEMDLPerceiveBondStereo(mol);
     }
     </#if>
 
@@ -82,7 +88,8 @@ class ${imageName}
         OEPrepareDepiction(mol, true, true);
 
         <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
-            rotateAndFlip(mol);
+        rotateAndFlip(mol);
+
         </#if>
         OE2DMolDisplayOptions displayOpts(imageWidth, imageHeight, OEScale::AutoScale);
         <#if titleLen != 0>

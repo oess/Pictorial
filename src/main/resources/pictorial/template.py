@@ -7,18 +7,22 @@ import math
 <#assign titleLen = molTitle?length>
 <#assign queryLen = substructure?length>
 <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
-
-def rotateAndFlip(OEGraphMol mol):
+def rotateAndFlip(mol):
+    flipX = ${flipX}
+    flipY = ${flipY}
     cosine = math.cos(${rotation});
     sine = math.sin(${rotation});
-    matrix = OEDoubleArray([ ${flipY} * cosine, ${flipY} * sine,   0.0,
-                             ${flipX} * -sine,  ${flipX} * cosine, 0.0,
-                                 0.0,               0.0,           0.0 ]
+    matrix = OEDoubleArray([ flipY * cosine, flipY * sine,   0.0,
+                             flipX * -sine,  flipX * cosine, 0.0,
+                             0.0,            0.0,            0.0])
 
     OECenter(mol);  # this must be called prior to OERotate
     OERotate(mol, matrix);
-</#if>
 
+    if flipX == -1.0 || flipY == -1.0:
+        OEMDLPerceiveBondStereo(mol)
+
+</#if>
 def makeImage():
     <#if titleLen != 0>
     molTitle = "${molTitle}"
