@@ -18,7 +18,7 @@ public class Settings {
     private int blueHighlight = 0x99;
     private float atomFontScale = 1.0f;
     private float rotation = 0.0f;
-    private String imageName = "pictorial.png";
+    private String imageName = "pictorial";
     private String smiles = "O=C(O)C(N)CC[S+](C)C[C@H]3O[C@@H](n2cnc1c(ncnc12)N)[C@H](O)[C@@H]3O";
     private String subSearchQuery = "";
     private String molTitle = "S-Adenosyl Methionine";
