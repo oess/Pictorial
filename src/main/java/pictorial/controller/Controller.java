@@ -566,7 +566,6 @@ private void generate(String language, String extension) {
             switch (_selectLanguage.getValue()) {
                 case "Python":
                     content = CodeGen.generatePython(_settings);
-                    System.out.println(content);
                     break;
                 case "C++":
                     content = CodeGen.generateCpp(_settings);
