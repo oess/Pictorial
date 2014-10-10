@@ -19,7 +19,7 @@ def rotateAndFlip(mol):
     OECenter(mol);  # this must be called prior to OERotate
     OERotate(mol, matrix);
 
-    if flipX == -1.0 || flipY == -1.0:
+    if flipX == -1.0 or flipY == -1.0:
         OEMDLPerceiveBondStereo(mol)
 
 </#if>

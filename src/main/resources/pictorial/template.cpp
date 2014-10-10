@@ -55,7 +55,7 @@ class ${imageName}
         float rotate = ${rotation};
         float cosine = (float) cos(${rotation});
         float sine = (float) sin(${rotation});
-        float matrix[9] = { flipY * cosine, flip * sine,    0.0,
+        float matrix[9] = { flipY * cosine, flipY * sine,   0.0,
                             flipX * -sine,  flipX * cosine, 0.0,
                              0.0,           0.0,            0.0 };
 

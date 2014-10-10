@@ -84,9 +84,9 @@ public class ${imageName} {
     <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
 
     private void rotateAndFlip(Settings s) {
-        float flipX = ${flipX};
-        float flipY = ${flipY};
-        float rotate = ${rotation};
+        float flipX = ${flipX}F;
+        float flipY = ${flipY}F;
+        float rotate = ${rotation}F;
 
         float cos = (float) Math.cos(rotate);
         float sin = (float) Math.sin(rotate);
