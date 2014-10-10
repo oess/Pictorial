@@ -302,6 +302,7 @@ public class Controller implements Initializable {
 
         _errorPopOver = new PopOver(label);
         _errorPopOver.detachableProperty().set(false);
+        _errorPopOver.setAutoHide(true);
         _errorPopOver.setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
         _errorPopOver.show(widget);
         setErrorStyle(widget);
