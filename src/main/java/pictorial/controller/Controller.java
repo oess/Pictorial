@@ -90,7 +90,6 @@ public class Controller implements Initializable {
         _title.setText(_settings.getMolTitle());
         _webView.contextMenuEnabledProperty().set(false);
 
-        updateImage();
         _penSize.valueProperty().addListener( (o, oldVal, newVal) -> {
                 me.updateImage();
                 int p = newVal.intValue();
@@ -136,7 +135,7 @@ public class Controller implements Initializable {
 
         // show the image properties
         _accordian.setExpandedPane(_imagePropsPane);
-        updateCodeArea();
+        updateImage();
     }
 
     public void updateImage() {
@@ -204,6 +203,7 @@ public class Controller implements Initializable {
             String content = "<div style=\"border: 1px solid black;width:" + width + "px;height:" + height + "px;margin:0 auto;position:relative;\" align='center'>" +
                             new String(imgBytes) + "</div>";
             _webView.getEngine().loadContent(content);
+            updateCodeArea();
 
         } catch(RuntimeException e) {
             _webView.getEngine().loadContent("<table align='center'><tr><td>" + 
@@ -240,13 +240,11 @@ public class Controller implements Initializable {
         _titleSize.setDisable(haveTitle);
         
         updateImage();
-        updateCodeArea();
     }
     
     @FXML
     public void update(ActionEvent event) {
         updateImage();
-        updateCodeArea();
     }
     
     @FXML
