@@ -2,7 +2,9 @@
  * Copyright 2013 OpenEye Scientific Software, Inc.
  *****************************************************************************/
 package pictorial.controller;
+import javafx.geometry.Insets;
 import javafx.stage.Window;
+import org.controlsfx.control.PopOver;
 import org.controlsfx.glyphfont.Glyph;
 import pictorial.model.*;
 import javafx.event.ActionEvent;
@@ -51,7 +53,7 @@ public class Controller implements Initializable {
     private WebView _webView;
     
     @FXML
-    private Button _save;
+    private Button _saveImage, _saveCode;
     
     @FXML
     private ColorPicker _color;
@@ -78,9 +80,10 @@ public class Controller implements Initializable {
     private TitledPane _imagePropsPane;
     
     private LinkedHashSet<Node> _widgets = new LinkedHashSet<>();
-    private final String _errorStyle = "-fx-background-color: red;";
+    private final String _errorStyle = "-fx-focus-color: red; -fx-border-color: red;";
     private final Glyph _warningGlyf = new Glyph("fontawesome", "WARNING");
     private Controller me = this;
+    private PopOver _errorPopOver;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -128,7 +131,7 @@ public class Controller implements Initializable {
         _widgets.add(_atomStereo);     _widgets.add(_bondStereo);
         _widgets.add(_superAtoms);     _widgets.add(_hydrogens);
         _widgets.add(_aromaticity);    _widgets.add(_penSize);
-        _widgets.add(_titleLocBottom); _widgets.add(_save);
+        _widgets.add(_titleLocBottom); _widgets.add(_saveImage);
         _widgets.add(_fontSize);       _widgets.add(_titleLocTop);
         _widgets.add(_rotation);       _widgets.add(_highlightStyle);
         _widgets.add(_flipX);          _widgets.add(_flipY);
@@ -143,8 +146,8 @@ public class Controller implements Initializable {
             String smiles = _input.getText();
             _settings.setSmiles(smiles);
             if(smiles.length() == 0) {
-                setErrorStyle(_input);
-                throw new RuntimeException("Valid SMILES or IUPAC name required.");
+                setErrorStyle(_input, "Valid SMILES, IUPAC name, or reaction required.");
+                return;
             }
             
             // parse the smiles string
@@ -153,16 +156,19 @@ public class Controller implements Initializable {
             if (!success) {
                 success = oeiupac.OEParseIUPACName(_mol, smiles);
                 if (!success) {
-                    setErrorStyle(_input);
+                    setErrorStyle(_input, "Failed to parse SMILES.");
                     return;
                 }
             }
+            setSuccessStyle(_input);
 
             _settings.setMolTitle(_title.getText());
 
             int width = getTextFieldIntValue(_width);
+            if (width == 0) { return; }
             _settings.setImageWidth(width);
             int height = getTextFieldIntValue(_height);
+            if (height == 0) { return; }
             _settings.setImageHeight(height);
 
             _settings.setFlipX(_flipX.isSelected());
@@ -184,8 +190,8 @@ public class Controller implements Initializable {
                 OESubSearch ss = new OESubSearch(_submatch.getText());
                 _settings.setSubSearchQuery(_submatch.getText());
                 if(!ss.IsValid()) {
-                    setErrorStyle(_submatch);
-                    throw new RuntimeException("Invalid substructure match query.");
+                    setErrorStyle(_submatch, "Invalid substructure match query.");
+                    return;
                 } else {
                     setSuccessStyle(_submatch);
                     _color.setDisable(false);
@@ -205,7 +211,6 @@ public class Controller implements Initializable {
             _webView.getEngine().loadContent(content);
             updateCodeArea();
             boolean reaction = _mol.IsRxn();
-            setSuccessStyle(_input);
             _settings.setReaction(reaction);
             _flipX.setDisable(reaction);
             _flipY.setDisable(reaction);
@@ -217,22 +222,23 @@ public class Controller implements Initializable {
                                            "</font></td></tr></table>");
         }
     }
-    
-    int getTextFieldIntValue(TextField widget) {
+
+    // returns zero on error
+    private int getTextFieldIntValue(TextField widget) {
         int v = 0;
         try { 
             v = Integer.parseInt(widget.getText());
         } catch(Exception e) { 
-            setErrorStyle(widget);
-            throw new RuntimeException("Error: Invalid integer value: [" + String.valueOf(v) + "]");
+            setErrorStyle(widget, "Error: Invalid integer value: [" + String.valueOf(v) + "]");
+           return 0;
         } 
-        if (v <= 0) { 
-            setErrorStyle(widget);
-            throw new RuntimeException("Error: Invalid integer value: [" + String.valueOf(v) + "]");
+        if (v <= 0) {
+            setErrorStyle(widget, "Error: Invalid positive integer value: [" + String.valueOf(v) + "]");
+            return 0;
         }
-        if (v > 4000) { 
-            setErrorStyle(widget);
-            throw new RuntimeException("Error: value too large: [" + String.valueOf(v) + "]");
+        if (v > 4000) {
+            setErrorStyle(widget, "Error: Integer value too large: [" + String.valueOf(v) + "]");
+            return 0;
         }
         setSuccessStyle(widget);
         return v;
@@ -244,7 +250,6 @@ public class Controller implements Initializable {
         _titleLocBottom.setDisable(haveTitle);
         _titleLocTop.setDisable(haveTitle);
         _titleSize.setDisable(haveTitle);
-        
         updateImage();
     }
     
@@ -288,6 +293,20 @@ public class Controller implements Initializable {
         }
     }
     
+    private void setErrorStyle(Node widget, String message) {
+        Label label = new Label(message);
+        //label.setGraphic(_warningGlyf);
+        label.setPadding(new Insets(5.0, 5.0, 5.0, 5.0));
+        if (_errorPopOver != null &&_errorPopOver.isShowing())
+            _errorPopOver.hide();
+
+        _errorPopOver = new PopOver(label);
+        _errorPopOver.detachableProperty().set(false);
+        _errorPopOver.setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
+        _errorPopOver.show(widget);
+        setErrorStyle(widget);
+    }
+
     private void setErrorStyle(Node widget) {
         String style = widget.getStyle();
         widget.setStyle(style + _errorStyle);
@@ -303,8 +322,10 @@ public class Controller implements Initializable {
         boolean noTitle = _title.getText().equals("");
         String style = widget.getStyle();
         style = style.replace(_errorStyle, "");
-        widget.setStyle(style); 
-            for(Node n: _widgets) { 
+        widget.setStyle(style);
+        if (_errorPopOver != null)
+            _errorPopOver.hide();
+        for(Node n: _widgets) {
             if (n!=null && n != widget) {
                 if(noTitle && (n == _titleLocBottom || n == _titleLocTop || n == _titleSize)) { 
                    continue; 
