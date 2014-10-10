@@ -66,7 +66,7 @@ public class ${imageName} {
             throw new RuntimeException("Invalid substructure query: " + ssquery);
         }
 
-        OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight});
+        OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight}, ${alphaHighlight});
         for (OEMatchBase match: subsearch.Match(mol, true)) {
             oedepict.OEAddHighlighting(display2d, color, ${highlightStyle}, match);
         }

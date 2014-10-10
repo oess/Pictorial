@@ -117,7 +117,7 @@ class ${imageName}
         if (!ss.Init(ssquery.c_str())) 
             OEThrow.Fatal("Invalid substructure query: %s", ssquery.c_str());
 
-        OEColor color(${redHighlight}, ${greenHighlight}, ${blueHighlight});
+        OEColor color(${redHighlight}, ${greenHighlight}, ${blueHighlight}, ${alphaHighlight});
         OEIter<OEMatchBase> mi;
         for(mi = ss.Match(mol, true); mi; ++mi) 
             OEAddHighlighting(display2d, color, ${highlightStyle}, *mi);

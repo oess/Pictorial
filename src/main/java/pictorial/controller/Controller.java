@@ -87,7 +87,7 @@ public class Controller implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Color c = Color.rgb(_settings.getRedHighlight(), _settings.getGreenHighlight(), _settings.getBlueHighlight());
+        Color c = Color.rgb(_settings.getRedHighlight(), _settings.getGreenHighlight(), _settings.getBlueHighlight(), _settings.getAlphaHighlight()/255);
         _color.setValue(c);
         _input.setText(_settings.getSmiles());
         _title.setText(_settings.getMolTitle());
@@ -527,6 +527,7 @@ public class Controller implements Initializable {
         _settings.setRedHighlight((int)(c.getRed()*256));
         _settings.setGreenHighlight((int)(c.getGreen()*256));
         _settings.setBlueHighlight((int)(c.getBlue()*256));
+        _settings.setAlphaHighlight((int)(c.getBlue()*256));
     }
 
 private File chooseFile(String language, String extension) {

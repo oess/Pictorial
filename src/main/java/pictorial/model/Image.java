@@ -76,7 +76,7 @@ public class Image {
             OESubSearch ss = new OESubSearch(sss);
             OEColor color = new OEColor(s.getRedHighlight(),
                     s.getGreenHighlight(),
-                    s.getBlueHighlight());
+                    s.getBlueHighlight(), s.getAlphaHighlight());
             int highlightStyle = s.getHiglightStyle().getValue();
             for (OEMatchBase match : ss.Match(_mol, true))
                 oedepict.OEAddHighlighting(display, color, highlightStyle, match);

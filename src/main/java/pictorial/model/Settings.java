@@ -16,6 +16,7 @@ public class Settings {
     private int redHighlight = 0x66;
     private int greenHighlight = 0x99;
     private int blueHighlight = 0x99;
+    private int alphaHighlight = 0xFF;
     private float atomFontScale = 1.0f;
     private float rotation = 0.0f;
     private String imageName = "pictorial";
@@ -135,6 +136,14 @@ public class Settings {
 
     public void setBlueHighlight(int blueHighlight) {
         this.blueHighlight = blueHighlight;
+    }
+
+    public int getAlphaHighlight() {
+        return alphaHighlight;
+    }
+
+    public void setAlphaHighlight(int alphaHighlight) {
+        this.alphaHighlight = alphaHighlight;
     }
 
     public float getAtomFontScale() {
@@ -257,6 +266,7 @@ public class Settings {
         ht.put("redHighlight", String.valueOf(redHighlight));
         ht.put("greenHighlight", String.valueOf(greenHighlight));
         ht.put("blueHighlight", String.valueOf(blueHighlight));
+        ht.put("alphaHighlight", String.valueOf(alphaHighlight));
         ht.put("atomFontScale", df1place.format(atomFontScale));
         ht.put("smiles", smiles);
         ht.put("substructure", subSearchQuery);

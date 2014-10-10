@@ -76,7 +76,7 @@ def makeImage():
     if not subsearch.IsValid():
         raise Exception("Invalid substructure query")
 
-    color = OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight})
+    color = OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight}, ${alphaHighlight})
 
     for match in subsearch.Match(mol, True):
         OEAddHighlighting(display2d, color, ${highlightStyle}, match)

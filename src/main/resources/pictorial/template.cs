@@ -71,7 +71,7 @@ public class ${imageName} {
             throw new Exception("Invalid substructure query: " + ssquery);
         }
 
-        OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight});
+        OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight}, ${alphaHighlight});
         foreach (OEMatchBase match in subsearch.Match(mol, true)) {
             OEDepict.OEAddHighlighting(display2d, color, ${highlightStyle}, match);
         }
