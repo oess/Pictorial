@@ -6,7 +6,7 @@ import math
 
 <#assign titleLen = molTitle?length>
 <#assign queryLen = substructure?length>
-<#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+<#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
 def rotateAndFlip(mol):
     flipX = ${flipX}
     flipY = ${flipY}
@@ -44,7 +44,7 @@ def makeImage():
 
     </#if>
     OEPrepareDepiction(mol, True, True) # set the 2d coordinates for the molecule
-    <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+    <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
     rotateAndFlip(mol)
 
     </#if>

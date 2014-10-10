@@ -46,7 +46,7 @@ class ${imageName}
         <#if queryLen != 0>ssquery = "${substructure}";</#if>
         bondPen = OEPen(OEBlack, OEBlack, OEFill::On, ${penSize});
     }
-    <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+    <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
 
     void rotateAndFlip(OEGraphMol &mol)
     {
@@ -87,7 +87,7 @@ class ${imageName}
         </#if>
         OEPrepareDepiction(mol, true, true);
 
-        <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+        <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
         rotateAndFlip(mol);
 
         </#if>

@@ -148,6 +148,7 @@ public class Controller implements Initializable {
             }
             
             // parse the smiles string
+            _mol.Clear();
             boolean success = oechem.OESmilesToMol(_mol, smiles);
             if (!success) {
                 success = oeiupac.OEParseIUPACName(_mol, smiles);
@@ -157,7 +158,6 @@ public class Controller implements Initializable {
                 }
             }
 
-            setSuccessStyle(_input);
             _settings.setMolTitle(_title.getText());
 
             int width = getTextFieldIntValue(_width);
@@ -204,6 +204,12 @@ public class Controller implements Initializable {
                             new String(imgBytes) + "</div>";
             _webView.getEngine().loadContent(content);
             updateCodeArea();
+            boolean reaction = _mol.IsRxn();
+            setSuccessStyle(_input);
+            _settings.setReaction(reaction);
+            _flipX.setDisable(reaction);
+            _flipY.setDisable(reaction);
+            _rotation.setDisable(reaction);
 
         } catch(RuntimeException e) {
             _webView.getEngine().loadContent("<table align='center'><tr><td>" + 
@@ -285,8 +291,8 @@ public class Controller implements Initializable {
     private void setErrorStyle(Node widget) {
         String style = widget.getStyle();
         widget.setStyle(style + _errorStyle);
-        for(Node n: _widgets) { 
-            if (n!=null && n != widget) { 
+        for(Node n: _widgets) {
+            if (n!=null && n != widget) {
                 n.disableProperty().set(true);
             }
         }

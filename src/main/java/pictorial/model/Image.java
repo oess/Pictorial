@@ -42,7 +42,9 @@ public class Image {
 
         _mol.SetTitle(s.getMolTitle());
 
-        rotateAndFlip(s);
+        if (!s.isReaction()) {
+            rotateAndFlip(s);
+        }
 
         // create an OEImage to render to
         int width = s.getImageWidth();

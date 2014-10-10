@@ -39,7 +39,7 @@ public class ${imageName} {
         </#if>
         OEDepict.OEPrepareDepiction(mol, true, true); // add 2D coordinates to the molecule
 
-        <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+        <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
         rotateAndFlip(mol);
 
         </#if>
@@ -81,7 +81,7 @@ public class ${imageName} {
         OEDepict.OEWriteImage("${imageName}.png", image);
         Console.WriteLine("Depiction saved to ${imageName}.png");
     }
-    <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+    <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
 
     private void rotateAndFlip(Settings s) {
         float flipX = ${flipX}F;

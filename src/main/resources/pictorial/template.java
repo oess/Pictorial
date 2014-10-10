@@ -36,10 +36,10 @@ public class ${imageName} {
         </#if>
         oedepict.OEPrepareDepiction(mol, true, true);  // assigns 2D coordinates to the atoms
 
-        <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
+        <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
         rotateAndFlip(mol);
-        </#if>
 
+        </#if>
         OE2DMolDisplayOptions displayOpts = new OE2DMolDisplayOptions(imageWidth, imageHeight, OEScale.AutoScale);
         <#if titleLen != 0>
         OEFont titleFont = new OEFont();
@@ -76,8 +76,8 @@ public class ${imageName} {
         oedepict.OEWriteImage("${imageName}.png", image);
         System.out.println("Depiction saved to ${imageName}.png");
     }
+    <#if reaction != "true"  && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
 
-    <#if rotation != "0.0" || flipX != "1.0" || flipY != "1.0">
     private void rotateAndFlip(OEGraphMol mol) {
         float flipX = ${flipX}f;
         float flipY = ${flipY}f;

@@ -33,6 +33,16 @@ public class Settings {
     private float flipX = 0.0f;
     private float flipY = 0.0f;
 
+    public boolean isReaction() {
+        return reaction;
+    }
+
+    public void setReaction(boolean reaction) {
+        this.reaction = reaction;
+    }
+
+    private boolean reaction = false;
+
     public float getFlipX() {
         return flipX;
     }
@@ -262,6 +272,7 @@ public class Settings {
         ht.put("highlightStyle", formatter.format(highlightStyle.toString()));
         ht.put("flipX", df1place.format(getFlipX()));
         ht.put("flipY", df1place.format(getFlipY()));
+        ht.put("reaction", String.valueOf(reaction));
 
         return ht;
     }
