@@ -274,7 +274,7 @@
                                           <Insets left="5.0" />
                                        </padding>
                                     </Label>
-                                    <ComboBox fx:id="_highlightStyle" onAction="#update" prefWidth="218.0" value="Color" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <ComboBox fx:id="_highlightStyle" onAction="#update" prefWidth="218.0" value="Ball And Stick" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <items>
                                           <FXCollections fx:factory="observableArrayList">
                                              <String fx:value="Color" />
