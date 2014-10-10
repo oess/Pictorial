@@ -9,8 +9,8 @@ import java.util.Hashtable;
 
 public class Settings {
     private static final DecimalFormat df1place = new DecimalFormat("0.0");
-    private int imageWidth = 700;
-    private int imageHeight = 700;
+    private int imageWidth = 750;
+    private int imageHeight = 750;
     private int penSize = 2;
     private int fontSize = 40;
     private int redHighlight = 0x66;

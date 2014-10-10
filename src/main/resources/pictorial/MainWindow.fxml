@@ -71,12 +71,12 @@
                                           <Insets right="5.0" fx:id="x2" />
                                        </GridPane.margin>
                                     </Slider>
-                                    <TextField id="_title" fx:id="_height" onKeyReleased="#handleTyping" prefWidth="167.0" text="700" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <TextField id="_title" fx:id="_height" onKeyReleased="#handleTyping" prefWidth="167.0" text="750" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                        <GridPane.margin>
                                           <Insets right="5.0" fx:id="x2" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <TextField id="_title" fx:id="_width" onKeyReleased="#handleTyping" prefWidth="200.0" text="700" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                    <TextField id="_title" fx:id="_width" onKeyReleased="#handleTyping" prefWidth="200.0" text="750" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                        <GridPane.margin>
                                           <Insets right="5.0" fx:id="x2" />
                                        </GridPane.margin>
