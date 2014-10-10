@@ -39,7 +39,7 @@ public class CodeGen {
         else if (language == "c++")
             _cppTemplate.process(settings.getHashTable(langFormat), sw);
         else if (language == "csharp")
-            _cppTemplate.process(settings.getHashTable(langFormat), sw);
+            _csTemplate.process(settings.getHashTable(langFormat), sw);
 
             return sw.toString();
     }
