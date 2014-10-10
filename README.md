@@ -24,9 +24,9 @@ Uses Depict to generate images and code samples.
 
 ## Running Pictorial
 
-* `java -jar target/Pictorial-1.0.jar`
+* `java -jar target/Pictorial-1.1Beta1.jar`
 
 ## Known Issues:
 
-* Errors are displayed in the console and not in the UI
+* Errors and warnings are displayed in the console and not in the UI
 * Generated code needs comments
