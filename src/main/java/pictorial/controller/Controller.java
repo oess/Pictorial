@@ -524,10 +524,10 @@ public class Controller implements Initializable {
 
     private void setHighlighColor() {
         Color c = _color.getValue();
-        _settings.setRedHighlight((int)(c.getRed()*256));
-        _settings.setGreenHighlight((int)(c.getGreen()*256));
-        _settings.setBlueHighlight((int)(c.getBlue()*256));
-        _settings.setAlphaHighlight((int)(c.getBlue()*256));
+        _settings.setRedHighlight((int)(c.getRed()*255));
+        _settings.setGreenHighlight((int)(c.getGreen()*255));
+        _settings.setBlueHighlight((int)(c.getBlue()*255));
+        _settings.setAlphaHighlight((int)(c.getOpacity()*255));
     }
 
 private File chooseFile(String language, String extension) {
