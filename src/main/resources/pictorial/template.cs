@@ -83,23 +83,23 @@ public class ${imageName} {
     }
     <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
 
-    private void rotateAndFlip(Settings s) {
-        float flipX = ${flipX}F;
-        float flipY = ${flipY}F;
-        float rotate = ${rotation}F;
+    private void rotateAndFlip(OEGraphMol mol) {
+        float flipX = ${flipX}f;
+        float flipY = ${flipY}f;
+        float rotate = ${rotation}f;
 
-        float cos = (float) Math.cos(rotate);
-        float sin = (float) Math.sin(rotate);
-        OEFloatArray angles = new OEFloatArray(8);
-        angles.setItem(0, flipY *  cos);  angles.setItem(1, flipY * sin);   angles.setItem(2, 0.0f);
-        angles.setItem(3, flipX * -sin);  angles.setItem(4, flipX * cos);   angles.setItem(5, 0.0f);
-        angles.setItem(6,0.0f);           angles.setItem(7, 0.0f);          angles.setItem(8, 0.0f);
+        float cos = (float) Math.Cos(rotate);
+        float sin = (float) Math.Sin(rotate);
+        float[] matrix = {
+            flipY * cos,  flipY * sin, 0.0f,
+            flipX * -sin, flipX * cos, 0.0f,
+            0.0f,         0.0f,        0.0f};
 
-        oechem.OECenter(mol);  // this must be called before OERotate
-        oechem.OERotate(mol, matrix);
+        OEChem.OECenter(mol);  // this must be called before OERotate
+        OEChem.OERotate(mol, matrix);
 
         if ( flipX == -1.0 || flipY == -1.0)
-            oechem.OEMDLPerceiveBondStereo(mol);
+            OEChem.OEMDLPerceiveBondStereo(mol);
     }
     </#if>
 
