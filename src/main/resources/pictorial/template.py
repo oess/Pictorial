@@ -2,10 +2,27 @@ from __future__ import print_function
 from openeye.oechem import *
 from openeye.oedepict import *
 from openeye.oeiupac import *
+import math
 
 <#assign titleLen = molTitle?length>
 <#assign queryLen = substructure?length>
+<#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
+def rotateAndFlip(mol):
+    flipX = ${flipX}
+    flipY = ${flipY}
+    cosine = math.cos(${rotation});
+    sine = math.sin(${rotation});
+    matrix = OEDoubleArray([ flipY * cosine, flipY * sine,   0.0,
+                             flipX * -sine,  flipX * cosine, 0.0,
+                             0.0,            0.0,            0.0])
 
+    OECenter(mol);  # this must be called prior to OERotate
+    OERotate(mol, matrix);
+
+    if flipX == -1.0 or flipY == -1.0:
+        OEMDLPerceiveBondStereo(mol)
+
+</#if>
 def makeImage():
     <#if titleLen != 0>
     molTitle = "${molTitle}"
@@ -27,14 +44,10 @@ def makeImage():
 
     </#if>
     OEPrepareDepiction(mol, True, True) # set the 2d coordinates for the molecule
-    <#if rotation != "0.0"> 
+    <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
+    rotateAndFlip(mol)
 
-    # rotate the molecule - must be called after OEPepareDepiction
-    angles = OEDoubleArray(3)
-    angles[0] = ${rotation}
-    OEEulerRotate(mol, angles)
     </#if>
-
     displayOpts = OE2DMolDisplayOptions(${imageWidth}, ${imageHeight}, OEScale_AutoScale)
     displayOpts.SetDefaultBondPen(bondPen)
     displayOpts.SetAromaticStyle(${aromaticStyle})
@@ -63,7 +76,7 @@ def makeImage():
     if not subsearch.IsValid():
         raise Exception("Invalid substructure query")
 
-    color = OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight})
+    color = OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight}, ${alphaHighlight})
 
     for match in subsearch.Match(mol, True):
         OEAddHighlighting(display2d, color, ${highlightStyle}, match)

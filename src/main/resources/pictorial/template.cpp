@@ -11,6 +11,7 @@
 #include <oedepict.h>
 #include <oeiupac.h>
 #include <iostream>
+#include <cmath>
 
 using namespace OEPlatform;
 using namespace OESystem;
@@ -45,6 +46,26 @@ class ${imageName}
         <#if queryLen != 0>ssquery = "${substructure}";</#if>
         bondPen = OEPen(OEBlack, OEBlack, OEFill::On, ${penSize});
     }
+    <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
+
+    void rotateAndFlip(OEGraphMol &mol)
+    {
+        float flipX = ${flipX};
+        float flipY = ${flipY};
+        float rotate = ${rotation};
+        float cosine = (float) cos(${rotation});
+        float sine = (float) sin(${rotation});
+        float matrix[9] = { flipY * cosine, flipY * sine,   0.0,
+                            flipX * -sine,  flipX * cosine, 0.0,
+                             0.0,           0.0,            0.0 };
+
+        OECenter(mol);  // this must be called prior to OERotate
+        OERotate(mol, matrix);
+
+        if (flipX == -1.0f || flipY == -1.0f)
+            OEMDLPerceiveBondStereo(mol);
+    }
+    </#if>
 
     void makeImage() 
     {
@@ -66,9 +87,8 @@ class ${imageName}
         </#if>
         OEPrepareDepiction(mol, true, true);
 
-        <#if rotation != "0.0"> 
-        double angles[] = {${rotation}, 0.0f, 0.0f};
-        OEEulerRotate(mol, angles);
+        <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
+        rotateAndFlip(mol);
 
         </#if>
         OE2DMolDisplayOptions displayOpts(imageWidth, imageHeight, OEScale::AutoScale);
@@ -97,7 +117,7 @@ class ${imageName}
         if (!ss.Init(ssquery.c_str())) 
             OEThrow.Fatal("Invalid substructure query: %s", ssquery.c_str());
 
-        OEColor color(${redHighlight}, ${greenHighlight}, ${blueHighlight});
+        OEColor color(${redHighlight}, ${greenHighlight}, ${blueHighlight}, ${alphaHighlight});
         OEIter<OEMatchBase> mi;
         for(mi = ss.Match(mol, true); mi; ++mi) 
             OEAddHighlighting(display2d, color, ${highlightStyle}, *mi);

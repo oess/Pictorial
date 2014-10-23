@@ -5,8 +5,8 @@ Uses Depict to generate images and code samples.
 
 ## Requirements
 
-* Java JDK 8 x64: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-* Maven 3.2+: http://maven.apache.org/download.cgi
+* Java JDK 8u20+ x64: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+* Maven 3.22+: http://maven.apache.org/download.cgi
 
 ## Building
 
@@ -24,9 +24,9 @@ Uses Depict to generate images and code samples.
 
 ## Running Pictorial
 
-* `java -jar target/Pictorial-1.0.jar`
+* `java -jar target/Pictorial-1.1.jar`
 
 ## Known Issues:
 
-* Errors are displayed in the console and not in the UI
+* Warnings are displayed in the console and not in the UI
 * Generated code needs comments

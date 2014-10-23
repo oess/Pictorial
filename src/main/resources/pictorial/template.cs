@@ -39,10 +39,8 @@ public class ${imageName} {
         </#if>
         OEDepict.OEPrepareDepiction(mol, true, true); // add 2D coordinates to the molecule
 
-        <#if rotation != "0.0"> 
-        // rotate the molecule
-        double[] angles = {${rotation}, 0.0f, 0.0f};
-        OEChem.OEEulerRotate(mol, angles);
+        <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
+        rotateAndFlip(mol);
 
         </#if>
         OE2DMolDisplayOptions displayOpts = new OE2DMolDisplayOptions(imageWidth, imageHeight, OEScale.AutoScale);
@@ -73,7 +71,7 @@ public class ${imageName} {
             throw new Exception("Invalid substructure query: " + ssquery);
         }
 
-        OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight});
+        OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight}, ${alphaHighlight});
         foreach (OEMatchBase match in subsearch.Match(mol, true)) {
             OEDepict.OEAddHighlighting(display2d, color, ${highlightStyle}, match);
         }
@@ -83,6 +81,27 @@ public class ${imageName} {
         OEDepict.OEWriteImage("${imageName}.png", image);
         Console.WriteLine("Depiction saved to ${imageName}.png");
     }
+    <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
+
+    private void rotateAndFlip(OEGraphMol mol) {
+        float flipX = ${flipX}f;
+        float flipY = ${flipY}f;
+        float rotate = ${rotation}f;
+
+        float cos = (float) Math.Cos(rotate);
+        float sin = (float) Math.Sin(rotate);
+        float[] matrix = {
+            flipY * cos,  flipY * sin, 0.0f,
+            flipX * -sin, flipX * cos, 0.0f,
+            0.0f,         0.0f,        0.0f};
+
+        OEChem.OECenter(mol);  // this must be called before OERotate
+        OEChem.OERotate(mol, matrix);
+
+        if ( flipX == -1.0 || flipY == -1.0)
+            OEChem.OEMDLPerceiveBondStereo(mol);
+    }
+    </#if>
 
     public static int Main(string[] args) {
         ${imageName} obj = new ${imageName}();

@@ -7,30 +7,64 @@ package pictorial.model;
 import java.text.DecimalFormat;
 import java.util.Hashtable;
 
-// TODO: these could be properties?
 public class Settings {
-    private static final DecimalFormat decimalFormat = new DecimalFormat("0.0");
-    private int imageWidth = 600;
-    private int imageHeight = 600;
+    private static final DecimalFormat df1place = new DecimalFormat("0.0");
+    private int imageWidth = 750;
+    private int imageHeight = 750;
     private int penSize = 2;
     private int fontSize = 40;
-    private int redHighlight = 0;
-    private int greenHighlight = 0;
-    private int blueHighlight = 0;
+    private int redHighlight = 0x66;
+    private int greenHighlight = 0x99;
+    private int blueHighlight = 0x99;
+    private int alphaHighlight = 0xFF;
     private float atomFontScale = 1.0f;
     private float rotation = 0.0f;
-    private String imageName;
-    private String smiles = "";
+    private String imageName = "pictorial";
+    private String smiles = "O=C(O)C(N)CC[S+](C)C[C@H]3O[C@@H](n2cnc1c(ncnc12)N)[C@H](O)[C@@H]3O";
     private String subSearchQuery = "";
-    private String molTitle = "";
-    private TitleLocation titleLocation;
-    private AromaticStyle aromaticStyle;
-    private AtomStereoStyle atomStereoStyle;
-    private BondStereoStyle bondStereoStyle;
-    private ColorStyle colorStyle;
-    private HydrogenStyle hydrogenStyle;
-    private SuperAtomStyle superAtomStyle;
+    private String molTitle = "S-Adenosyl Methionine";
+    private TitleLocation titleLocation = TitleLocation.TOP;
+    private AromaticStyle aromaticStyle = AromaticStyle.KEKULE;
+    private AtomStereoStyle atomStereoStyle = AtomStereoStyle.DEFAULT;
+    private BondStereoStyle bondStereoStyle = BondStereoStyle.DEFAULT;
+    private ColorStyle colorStyle = ColorStyle.WHITE_CPK;
+    private HydrogenStyle hydrogenStyle = HydrogenStyle.DEFAULT;
+    private SuperAtomStyle superAtomStyle = SuperAtomStyle.OFF;
     private HighlightStyle highlightStyle = HighlightStyle.COLOR;
+    private float flipX = 0.0f;
+    private float flipY = 0.0f;
+
+    public boolean isReaction() {
+        return reaction;
+    }
+
+    public void setReaction(boolean reaction) {
+        this.reaction = reaction;
+    }
+
+    private boolean reaction = false;
+
+    public float getFlipX() {
+        return flipX;
+    }
+
+    public void setFlipX(boolean enable) {
+        if (enable)
+            this.flipX = -1.0f;
+        else
+            this.flipX = 1.0f;
+    }
+
+    public float getFlipY() {
+        return flipY;
+    }
+
+    public void setFlipY(boolean enable) {
+        if (enable)
+            this.flipY = -1.0f;
+        else
+            this.flipY = 1.0f;
+    }
 
     public SuperAtomStyle getSuperAtomStyle() {
         return superAtomStyle;
@@ -41,7 +75,7 @@ public class Settings {
     }
 
     public static DecimalFormat getDecimalFormat() {
-        return decimalFormat;
+        return df1place;
     }
 
     public void setAtomFontScale(float atomFontScale) {
@@ -102,6 +136,14 @@ public class Settings {
 
     public void setBlueHighlight(int blueHighlight) {
         this.blueHighlight = blueHighlight;
+    }
+
+    public int getAlphaHighlight() {
+        return alphaHighlight;
+    }
+
+    public void setAlphaHighlight(int alphaHighlight) {
+        this.alphaHighlight = alphaHighlight;
     }
 
     public float getAtomFontScale() {
@@ -195,7 +237,6 @@ public class Settings {
     }
 
     public void setImageName(String name) {
-
         this.imageName = name.replace(' ', '_');
     }
 
@@ -208,7 +249,7 @@ public class Settings {
     }
 
     public float getRotation() {
-        return (3.141596f * rotation) / 180.0f;
+        return (float)Math.toRadians(rotation);
     }
 
     public void setRotation(float rotate) {
@@ -225,7 +266,8 @@ public class Settings {
         ht.put("redHighlight", String.valueOf(redHighlight));
         ht.put("greenHighlight", String.valueOf(greenHighlight));
         ht.put("blueHighlight", String.valueOf(blueHighlight));
-        ht.put("atomFontScale", decimalFormat.format(atomFontScale));
+        ht.put("alphaHighlight", String.valueOf(alphaHighlight));
+        ht.put("atomFontScale", df1place.format(atomFontScale));
         ht.put("smiles", smiles);
         ht.put("substructure", subSearchQuery);
         ht.put("molTitle", molTitle);
@@ -236,8 +278,11 @@ public class Settings {
         ht.put("colorStyle", formatter.format(colorStyle.toString()));
         ht.put("superAtomStyle", formatter.format(superAtomStyle.toString()));
         ht.put("hydrogenStyle", formatter.format(hydrogenStyle.toString()));
-        ht.put("rotation", decimalFormat.format(getRotation()));
+        ht.put("rotation", df1place.format(getRotation()));
         ht.put("highlightStyle", formatter.format(highlightStyle.toString()));
+        ht.put("flipX", df1place.format(getFlipX()));
+        ht.put("flipY", df1place.format(getFlipY()));
+        ht.put("reaction", String.valueOf(reaction));
 
         return ht;
     }

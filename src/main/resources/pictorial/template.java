@@ -1,12 +1,10 @@
 import openeye.oechem.*;
 import openeye.oedepict.*;
 import openeye.oeiupac.*;
-
 <#assign titleLen = molTitle?length>
 <#assign queryLen = substructure?length>
 
 public class ${imageName} {
-
     <#if titleLen != 0>
     private String molTitle = "${molTitle}";
     </#if>
@@ -20,12 +18,11 @@ public class ${imageName} {
     private int imageHeight= ${imageHeight};
 
     public void makeImage() {
-
         OEGraphMol mol = new OEGraphMol();
 
         // parse the smiles string
         boolean success = oechem.OESmilesToMol(mol, smiles);
-        if (!success) { 
+        if (!success) {
             mol.Clear();
             success = oeiupac.OEParseIUPACName(mol, smiles);
             if (!success) {
@@ -37,13 +34,12 @@ public class ${imageName} {
         <#if titleLen != 0>
         mol.SetTitle(molTitle);
         </#if>
-        oedepict.OEPrepareDepiction(mol, true, true);
+        oedepict.OEPrepareDepiction(mol, true, true);  // assigns 2D coordinates to the atoms
 
-        <#if rotation != "0.0"> 
-        double[] angles = {${rotation}, 0.0f, 0.0f};
-        oechem.OEEulerRotate(mol, angles);
+        <#if reaction != "true" && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
+        rotateAndFlip(mol);
+
         </#if>
-
         OE2DMolDisplayOptions displayOpts = new OE2DMolDisplayOptions(imageWidth, imageHeight, OEScale.AutoScale);
         <#if titleLen != 0>
         OEFont titleFont = new OEFont();
@@ -70,7 +66,7 @@ public class ${imageName} {
             throw new RuntimeException("Invalid substructure query: " + ssquery);
         }
 
-        OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight});
+        OEColor color = new OEColor(${redHighlight}, ${greenHighlight}, ${blueHighlight}, ${alphaHighlight});
         for (OEMatchBase match: subsearch.Match(mol, true)) {
             oedepict.OEAddHighlighting(display2d, color, ${highlightStyle}, match);
         }
@@ -80,6 +76,27 @@ public class ${imageName} {
         oedepict.OEWriteImage("${imageName}.png", image);
         System.out.println("Depiction saved to ${imageName}.png");
     }
+    <#if reaction != "true"  && (rotation != "0.0" || flipX != "1.0" || flipY != "1.0")>
+
+    private void rotateAndFlip(OEGraphMol mol) {
+        float flipX = ${flipX}f;
+        float flipY = ${flipY}f;
+        float rotate = ${rotation}f;
+
+        float cos = (float) Math.cos(rotate);
+        float sin = (float) Math.sin(rotate);
+        OEFloatArray matrix = new OEFloatArray(8);
+        matrix.setItem(0, flipY *  cos);  matrix.setItem(1, flipY * sin);   matrix.setItem(2, 0.0f);
+        matrix.setItem(3, flipX * -sin);  matrix.setItem(4, flipX * cos);   matrix.setItem(5, 0.0f);
+        matrix.setItem(6, 0.0f);          matrix.setItem(7, 0.0f);          matrix.setItem(8, 0.0f);
+
+        oechem.OECenter(mol);  // this must be called before OERotate
+        oechem.OERotate(mol, matrix);
+
+        if (flipX == -1.0f || flipY == -1.0f)
+            oechem.OEMDLPerceiveBondStereo(mol);
+    }
+    </#if>
 
     public static void main(String[] args) {
         ${imageName} obj = new ${imageName}();
