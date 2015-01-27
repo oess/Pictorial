@@ -149,6 +149,7 @@ public class Controller implements Initializable {
                 setErrorStyle(_input, "Valid SMILES, IUPAC name, or reaction required.");
                 return;
             }
+            oemolistream stream = new oemolistream();
             
             // parse the smiles string
             _mol.Clear();
@@ -451,7 +452,7 @@ public class Controller implements Initializable {
             case "Explicit: All":
                 _settings.setHydrogenStyle(HydrogenStyle.EXPLICIT_ALL);
                 break;
-            case "Excplicit: Hetero":                    
+            case "Explicit: Hetero":                    
                 _settings.setHydrogenStyle(HydrogenStyle.EXPLICT_HETERO);
                 break;
             case "Explicit: Terminal":

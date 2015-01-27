@@ -239,7 +239,7 @@
                                           <FXCollections fx:factory="observableArrayList">
                                              <String fx:value="Default" />
                                              <String fx:value="Explicit: All" />
-                                             <String fx:value="Excplicit: Hetero" />
+                                             <String fx:value="Explicit: Hetero" />
                                              <String fx:value="Explicit: Terminal" />
                                              <String fx:value="Implicit: All" />
                                              <String fx:value="Implicit: Hetero" />
